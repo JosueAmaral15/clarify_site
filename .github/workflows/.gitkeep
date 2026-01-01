@@ -1,0 +1,6 @@
+# CI/CD workflows will be implemented in Sprint 6 (Tasks #39-#41)
+# 
+# Planned workflows:
+# - frontend-ci.yml (ESLint, TypeScript, Tests, Build)
+# - backend-ci.yml (ESLint, TypeScript, Tests, Security audit)
+# - deploy.yml (Auto-deploy to Vercel + Railway)
