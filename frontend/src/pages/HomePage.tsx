@@ -4,6 +4,7 @@ import Testimonials from '../components/Testimonials';
 import FeaturesGrid from '../components/FeaturesGrid';
 import DownloadSection from '../components/DownloadSection';
 import ToolsShowcase from '../components/ToolsShowcase';
+import ContactSection from '../components/ContactSection';
 
 export default function HomePage() {
   return (
@@ -22,6 +23,9 @@ export default function HomePage() {
 
       {/* Testimonials Section - Task #13 Complete */}
       <Testimonials />
+
+      {/* Contact Section - Integrated with Backend */}
+      <ContactSection />
 
       {/* Final CTA Section - Task #14 Complete */}
       <FinalCTA />

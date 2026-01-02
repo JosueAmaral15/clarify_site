@@ -1,9 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import downloadService, { type DownloadStats } from '../services/downloadService';
 
 export default function DownloadSection() {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const [selectedPlatform, setSelectedPlatform] = useState<'windows' | 'linux' | 'macos'>('windows');
+  const [downloadStats, setDownloadStats] = useState<DownloadStats>({ 
+    total: 0, 
+    byPlatform: { windows: 0, macos: 0, linux: 0 }, 
+    recent: [] 
+  });
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  useEffect(() => {
+    // Fetch download stats
+    downloadService.getDownloadStats()
+      .then(stats => setDownloadStats(stats))
+      .catch(err => console.error('Failed to load stats:', err));
+  }, []);
 
   const platforms = [
     {
@@ -76,7 +90,7 @@ export default function DownloadSection() {
           {/* Download Count Badge */}
           <div className="mt-6 inline-flex items-center bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 px-4 py-2 rounded-full">
             <span className="text-2xl mr-2">⬇️</span>
-            <span className="font-semibold">50,000+ downloads</span>
+            <span className="font-semibold">{downloadStats.total.toLocaleString()}+ downloads</span>
           </div>
         </div>
 
@@ -117,17 +131,38 @@ export default function DownloadSection() {
                 </div>
 
                 {/* Download Button */}
-                <a
-                  href={currentPlatform.downloadUrl}
-                  className="block w-full bg-green-600 text-white text-center px-6 py-4 rounded-lg font-bold text-lg hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl mb-4"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    alert('Download will be available soon! Check GitHub releases.');
+                <button
+                  onClick={async () => {
+                    setIsDownloading(true);
+                    try {
+                      // Track download
+                      await downloadService.trackDownload({
+                        platform: selectedPlatform,
+                        version: currentPlatform.version,
+                        source: 'website'
+                      });
+                      
+                      // Get download link
+                      const downloadUrl = await downloadService.getDownloadLink(selectedPlatform);
+                      
+                      // Initiate download
+                      window.location.href = downloadUrl;
+                      
+                      // Update stats
+                      const stats = await downloadService.getDownloadStats();
+                      setDownloadStats(stats);
+                    } catch (error) {
+                      alert('Download temporariamente indisponível. Tente novamente.');
+                    } finally {
+                      setIsDownloading(false);
+                    }
                   }}
+                  disabled={isDownloading}
+                  className="block w-full bg-green-600 text-white text-center px-6 py-4 rounded-lg font-bold text-lg hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="mr-2">⬇️</span>
-                  Download for {currentPlatform.name}
-                </a>
+                  <span className="mr-2">{isDownloading ? '⏳' : '⬇️'}</span>
+                  {isDownloading ? 'Preparando download...' : `Download for ${currentPlatform.name}`}
+                </button>
 
                 {/* File Info */}
                 <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-4">

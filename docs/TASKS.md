@@ -199,6 +199,71 @@ Using **Complexity** markers:
 
 ### C. Authentication System
 
+- [x] 🟡 #16 JWT authentication (Backend) (2h) ✅
+  - User model with password hashing
+  - Login & Register routes
+  - JWT token generation (access + refresh)
+  - Token refresh endpoint
+  - Password validation middleware
+  - Auth middleware for protected routes
+
+- [x] 🟡 #17 Auth UI (Frontend) (2h) ✅
+  - Login page with form validation
+  - Register page with password confirmation
+  - Auth context provider
+  - Protected route HOC
+  - Token storage (localStorage)
+  - Auto logout on token expiry
+
+---
+
+### D. Backend API Development
+
+- [x] 🟡 #18 Downloads API (1.5h) ✅
+  - POST /api/downloads/track - Track download
+  - GET /api/downloads/stats - Get statistics
+  - GET /api/downloads/link/:platform - Get download URL
+  - Download model with timestamps
+  - Platform validation (windows/macos/linux)
+
+- [x] 🟡 #19 Contact Form API (1.5h) ✅
+  - POST /api/contact - Submit contact form
+  - Contact model with validation
+  - Email notification setup (Nodemailer)
+  - Rate limiting (5 requests/hour per IP)
+  - Input sanitization (XSS prevention)
+
+---
+
+### E. Frontend-Backend Integration
+
+- [x] 🟢 #20 API Service Layer (1h) ✅
+  - Created axios instance with interceptors
+  - API base configuration (.env)
+  - Token refresh logic
+  - Error handling middleware
+  - Created services:
+    * authService.ts
+    * downloadService.ts
+    * contactService.ts
+
+- [x] 🟡 #21 Integrate Download Tracking (1h) ✅
+  - Updated DownloadSection component
+  - Real-time download stats
+  - Download tracking on button click
+  - Loading states
+  - Error handling
+
+- [x] 🟡 #22 Integrate Contact Form (1h) ✅
+  - Created ContactSection component
+  - Form validation
+  - API integration with backend
+  - Success/error messages
+  - Rate limit handling
+  - Added to HomePage
+
+---
+
 #### C.1. Backend Authentication
 - [x] 🔴 #16 JWT authentication implementation (3h) ✅
   - Create User model (Mongoose schema) ✅
