@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export interface IUser extends Document {
   name: string;
@@ -7,6 +7,9 @@ export interface IUser extends Document {
   password: string;
   role: 'user' | 'admin';
   avatar?: string;
+  isActive: boolean;
+  resetPasswordToken?: string;
+  resetPasswordExpires?: Date;
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
@@ -47,6 +50,12 @@ const UserSchema: Schema = new Schema(
       type: String,
       default: null,
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt

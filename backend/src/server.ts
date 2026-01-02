@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import connectDB from './config/database';
 import { apiLimiter } from './middleware/rateLimiter';
@@ -14,6 +15,7 @@ import {
   errorHandler,
   notFoundHandler,
 } from './middleware/errorHandler';
+import authRoutes from './routes/auth.routes';
 
 // Load environment variables
 dotenv.config();
@@ -44,6 +46,7 @@ app.use(apiLimiter);
 // 4. Body Parser (with size limits to prevent payload attacks)
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(cookieParser());
 
 // 5. Data Sanitization against NoSQL injection
 app.use(sanitizeMongoQueries);
@@ -72,9 +75,13 @@ app.get('/', (_req: Request, res: Response) => {
     endpoints: {
       health: '/health',
       api: '/api',
+      auth: '/api/auth',
     },
   });
 });
+
+// API Routes
+app.use('/api/auth', authRoutes);
 
 // 404 Handler (must be after all routes)
 app.use(notFoundHandler);
