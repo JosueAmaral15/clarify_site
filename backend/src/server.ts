@@ -16,6 +16,8 @@ import {
   notFoundHandler,
 } from './middleware/errorHandler';
 import authRoutes from './routes/auth.routes';
+import downloadRoutes from './routes/downloads';
+import contactRoutes from './routes/contact.routes';
 
 // Load environment variables
 dotenv.config();
@@ -82,6 +84,8 @@ app.get('/', (_req: Request, res: Response) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/downloads', downloadRoutes);
+app.use('/api/contact', contactRoutes);
 
 // 404 Handler (must be after all routes)
 app.use(notFoundHandler);

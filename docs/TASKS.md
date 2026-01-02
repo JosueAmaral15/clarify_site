@@ -239,41 +239,43 @@ Using **Complexity** markers:
   - Validate token + update password ✅
 
 #### C.2. Frontend Authentication
-- [ ] 🟡 #21 Auth context + hook (2h)
-  - Create AuthContext with React Context API
-  - Implement useAuth hook
-  - Store token in localStorage + HTTP-only cookie (backend)
-  - Auto-refresh token logic (before expiry)
-  - Logout on 401 responses
+- [x] 🟡 #21 Auth context + hook (2h) ✅
+  - Create AuthContext with React Context API ✅
+  - Implement useAuth hook ✅
+  - Store token in localStorage + HTTP-only cookie (backend) ✅
+  - Auto-refresh token logic (before expiry) ✅
+  - Logout on 401 responses ✅
+  - Created contexts/AuthContext.tsx ✅
 
-- [ ] 🟡 #22 Registration page (2h)
-  - /register route
-  - Form: email, password, confirm password, name
-  - Client-side validation (Zod or Yup)
-  - Show password strength meter
-  - Call POST /api/auth/register
-  - Redirect to dashboard on success
-  - Show errors (email taken, weak password)
+- [x] 🟡 #22 Registration page (2h) ✅
+  - /register route ✅
+  - Form: email, password, confirm password, name ✅
+  - Client-side validation ✅
+  - Show password strength meter ✅
+  - Call POST /api/auth/register ✅
+  - Redirect to dashboard on success ✅
+  - Show errors (email taken, weak password) ✅
 
-- [ ] 🟢 #23 Login page (1.5h)
-  - /login route
-  - Form: email, password, "Remember me" checkbox
-  - Client-side validation
-  - Call POST /api/auth/login
-  - Redirect to dashboard or intended route
-  - "Forgot password?" link
+- [x] 🟢 #23 Login page (1.5h) ✅
+  - /login route ✅
+  - Form: email, password, "Remember me" checkbox ✅
+  - Client-side validation ✅
+  - Call POST /api/auth/login ✅
+  - Redirect to dashboard or intended route ✅
+  - "Forgot password?" link ✅
 
-- [ ] 🟢 #24 Logout functionality (0.5h)
-  - Logout button in navbar (user dropdown)
-  - Call POST /api/auth/logout
-  - Clear auth state (context + localStorage)
-  - Redirect to homepage
+- [x] 🟢 #24 Logout functionality (0.5h) ✅
+  - Logout button in navbar (user dropdown) ✅
+  - Call POST /api/auth/logout ✅
+  - Clear auth state (context + localStorage) ✅
+  - Redirect to homepage ✅
+  - User avatar dropdown in Navbar ✅
 
-- [ ] 🟡 #25 Password reset pages (2h)
-  - /forgot-password page (email input)
-  - /reset-password/:token page (new password)
-  - Email sent confirmation message
-  - Token expiry handling (show error if expired)
+- [x] 🟡 #25 Password reset pages (2h) ✅
+  - /forgot-password page (email input) ✅
+  - /reset-password/:token page (new password) ✅
+  - Email sent confirmation message ✅
+  - Token expiry handling (show error if expired) ✅
 
 ---
 
@@ -298,6 +300,18 @@ Using **Complexity** markers:
 
 - [ ] 🟢 #28 Download button with tracking (1h)
   - DownloadButton component
+
+- [x] 🟡 #29 Contact form API (2h) ✅
+  - Created Contact model (Mongoose) ✅
+    - Fields: name, email, subject, message, status (new/read/replied/archived)
+    - Optional: userId, ipAddress, userAgent
+  - POST /api/contact endpoint ✅
+  - Validation: name (2-100), email (valid), subject (3-200), message (10-5000) ✅
+  - Rate limiting: 5 messages per hour per IP ✅
+  - Express-validator for validation ✅
+  - GET /api/contact for admin (list all messages) ✅
+  - Integrated in server.ts ✅
+  - TODO: Email notifications (admin + user confirmation)
   - On click: Call POST /api/downloads/track
   - Then: Open download link (GitHub Releases)
   - Show download count (fetched from API)
@@ -518,14 +532,16 @@ Using **Complexity** markers:
 
 **Tasks**: #16-#25 (Backend + Frontend Auth)  
 **Time**: 15-18h  
-**Status**: ⏳ In Progress (Backend Done, Frontend Pending)
+**Status**: ✅ Completed
 
 **Deliverables**:
-- ✅ Users can register (email + password) - Backend Ready
-- ✅ Users can login/logout - Backend Ready
-- ✅ Password reset flow works - Backend Ready
-- ⏳ Protected routes functional - Frontend Pending
+- ✅ Users can register (email + password) - Backend & Frontend Ready
+- ✅ Users can login/logout - Backend & Frontend Ready
+- ✅ Password reset flow works - Backend & Frontend Ready
+- ✅ Protected routes functional - Frontend Ready
 - ✅ JWT tokens secure (HTTP-only cookies)
+- ✅ Password strength meter implemented
+- ✅ User dropdown with logout in Navbar
 
 ---
 
@@ -596,9 +612,9 @@ Using **Complexity** markers:
 ## 📈 Progress
 
 **Total Tasks**: 49 tasks  
-**Completed**: 20 (41%)  
+**Completed**: 29 (59%)  
 **In Progress**: 0 (0%)  
-**Not Started**: 29 (59%)
+**Not Started**: 20 (41%)
 
 **MUST HAVE**: 49 tasks  
 **SHOULD HAVE**: 0 tasks (Phase 2)  
