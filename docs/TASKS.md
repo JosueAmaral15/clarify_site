@@ -246,21 +246,27 @@ Using **Complexity** markers:
     * authService.ts
     * downloadService.ts
     * contactService.ts
+  - Frontend .env configured with VITE_API_BASE_URL=http://localhost:5000/api
+  - All services tested and working
 
 - [x] 🟡 #21 Integrate Download Tracking (1h) ✅
-  - Updated DownloadSection component
-  - Real-time download stats
+  - DownloadSection component already integrated
+  - Real-time download stats from API
   - Download tracking on button click
-  - Loading states
-  - Error handling
+  - Loading states with "Preparando download..."
+  - Error handling with user-friendly messages
+  - Backend tested: GET /api/downloads/stats returns data
+  - Total downloads displayed: 50,000+ (from database)
 
 - [x] 🟡 #22 Integrate Contact Form (1h) ✅
-  - Created ContactSection component
-  - Form validation
-  - API integration with backend
-  - Success/error messages
-  - Rate limit handling
-  - Added to HomePage
+  - ContactSection component fully integrated
+  - Form validation (client-side)
+  - API integration with backend working
+  - Success message: "Mensagem enviada com sucesso!"
+  - Error handling with specific messages
+  - Rate limit handling (429 status)
+  - Backend tested: POST /api/contact creates record
+  - Auto-reply confirmation (pending email service)
 
 ---
 
