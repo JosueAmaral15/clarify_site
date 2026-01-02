@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { FaWindows, FaLinux, FaApple, FaDownload, FaCheckCircle } from 'react-icons/fa';
-import api from '../services/api';
+import downloadService from '../services/downloadService';
+
+type Platform = 'windows' | 'macos' | 'linux';
 
 interface DownloadOption {
-  id: string;
+  id: Platform;
   platform: string;
   icon: typeof FaWindows;
   version: string;
@@ -47,10 +49,15 @@ export default function DownloadPage() {
     
     try {
       // Track download
-      await api.trackDownload({
-        platform: option.platform,
-        version: option.version
+      await downloadService.trackDownload({
+        platform: option.id,
+        version: option.version,
+        source: 'download-page'
       });
+
+      // Get download link and initiate download
+      const downloadUrl = await downloadService.getDownloadLink(option.id);
+      window.location.href = downloadUrl;
 
       // Simulate download (in production, this would trigger actual file download)
       setTimeout(() => {
