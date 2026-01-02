@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import mongoSanitize from 'express-mongo-sanitize';
 import hpp from 'hpp';
 
 /**
@@ -10,12 +9,62 @@ import hpp from 'hpp';
  * { "email": { "$gt": "" } } -> tries to match all emails
  * After sanitization: { "email": "" }
  */
-export const sanitizeMongoQueries = mongoSanitize({
-  replaceWith: '_', // Replace $ and . with _
-  onSanitize: ({ req, key }) => {
-    console.warn(`⚠️  Sanitized key: ${key} in request from ${req.ip}`);
-  },
-});
+export const sanitizeMongoQueries = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
+  // Sanitize body
+  if (req.body) {
+    req.body = sanitizeMongoObject(req.body);
+  }
+
+  // Sanitize query parameters
+  if (req.query) {
+    const sanitized = sanitizeMongoObject(req.query);
+    // Create new query object to avoid read-only issues
+    Object.keys(req.query).forEach(key => delete (req.query as any)[key]);
+    Object.assign(req.query, sanitized);
+  }
+
+  // Sanitize URL parameters
+  if (req.params) {
+    const sanitized = sanitizeMongoObject(req.params);
+    Object.keys(req.params).forEach(key => delete req.params[key]);
+    Object.assign(req.params, sanitized);
+  }
+
+  next();
+};
+
+/**
+ * Remove MongoDB operators from object
+ */
+function sanitizeMongoObject(obj: any): any {
+  if (typeof obj === 'string') {
+    // Only remove $ at the beginning of strings and dots in keys
+    // Don't remove @ from emails or other special chars
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.map(sanitizeMongoObject);
+  }
+
+  if (obj !== null && typeof obj === 'object') {
+    const sanitized: any = {};
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        // Remove keys starting with $ or containing .
+        const sanitizedKey = key.replace(/^\$/g, '').replace(/\./g, '_');
+        sanitized[sanitizedKey] = sanitizeMongoObject(obj[key]);
+      }
+    }
+    return sanitized;
+  }
+
+  return obj;
+}
 
 /**
  * HTTP Parameter Pollution (HPP) Protection
@@ -49,14 +98,18 @@ export const sanitizeInput = (
     req.body = sanitizeObject(req.body);
   }
 
-  // Sanitize query parameters
-  if (req.query) {
-    req.query = sanitizeObject(req.query);
+  // Sanitize query parameters (avoid read-only issue)
+  if (req.query && Object.keys(req.query).length > 0) {
+    const sanitized = sanitizeObject(req.query);
+    Object.keys(req.query).forEach(key => delete (req.query as any)[key]);
+    Object.assign(req.query, sanitized);
   }
 
   // Sanitize URL parameters
-  if (req.params) {
-    req.params = sanitizeObject(req.params);
+  if (req.params && Object.keys(req.params).length > 0) {
+    const sanitized = sanitizeObject(req.params);
+    Object.keys(req.params).forEach(key => delete req.params[key]);
+    Object.assign(req.params, sanitized);
   }
 
   next();

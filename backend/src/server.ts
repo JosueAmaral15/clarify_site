@@ -48,13 +48,12 @@ app.use(apiLimiter);
 // 4. Body Parser (with size limits to prevent payload attacks)
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(cookieParser());
 
-// 5. Data Sanitization against NoSQL injection
+// 5. Data Sanitization against NoSQL injection (must be BEFORE cookieParser)
 app.use(sanitizeMongoQueries);
 
-// 6. Data Sanitization against XSS
-app.use(sanitizeInput);
+// 6. Cookie Parser
+app.use(cookieParser());
 
 // 7. Prevent HTTP Parameter Pollution
 app.use(preventParameterPollution);
