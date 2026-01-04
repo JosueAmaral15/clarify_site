@@ -445,28 +445,36 @@ Using **Complexity** markers:
 
 ### F. User Dashboard
 
-- [ ] 🟡 #32 Dashboard layout (2h)
-  - /dashboard route (protected)
-  - Sidebar navigation:
-    - Profile
-    - My Downloads
-    - Settings
-    - Admin Panel (if role=admin)
-  - Main content area
-  - Responsive (collapse sidebar on mobile)
+- [x] 🟡 #32 Dashboard layout (2h) ✅
+  - /dashboard route (protected) ✅
+  - Sidebar navigation: ✅
+    - Profile ✅
+    - My Downloads ✅
+    - Settings ✅
+    - Admin Panel (if role=admin) ✅
+  - Main content area ✅
+  - Responsive (collapse sidebar on mobile) ✅
+  - Mobile header with hamburger menu ✅
+  - User avatar/initials display ✅
+  - Logout button ✅
 
-- [ ] 🟢 #33 Profile page (1.5h)
-  - Display user info (name, email, avatar)
-  - Edit profile form (name, avatar)
-  - Change password section
-  - Delete account button (with confirmation)
+- [x] 🟢 #33 Profile page (1.5h) ✅
+  - Display user info (name, email, avatar) ✅
+  - Edit profile form (name, avatar) ✅
+  - Change password section ✅
+  - Delete account button (with confirmation) ✅
+  - Success/error notifications ✅
+  - Loading states ✅
+  - Form validation ✅
 
-- [ ] 🟡 #34 User CRUD API (2h)
-  - GET /api/users/me (get current user)
-  - PUT /api/users/me (update name, avatar)
-  - PUT /api/users/me/password (change password)
-  - DELETE /api/users/me (delete account - soft delete)
-  - Authorization: Only own profile
+- [x] 🟡 #34 User CRUD API (2h) ✅
+  - GET /api/users/me (get current user) ✅
+  - PUT /api/users/me (update name, avatar) ✅
+  - PUT /api/users/me/password (change password) ✅
+  - DELETE /api/users/me (delete account - soft delete) ✅
+  - Authorization: Only own profile ✅
+  - Password strength validation ✅
+  - Soft delete with isDeleted/deletedAt fields ✅
 
 ---
 
