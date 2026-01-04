@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { Layout } from './components/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import DashboardLayout from './layouts/DashboardLayout';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -15,6 +14,9 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminUsers from './pages/AdminUsers';
+import AdminDownloads from './pages/AdminDownloads';
+import AdminContacts from './pages/AdminContacts';
 import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
@@ -59,29 +61,33 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: (
           <ProtectedRoute>
-            <DashboardLayout />
+            <DashboardPage />
           </ProtectedRoute>
         ),
         children: [
-          {
-            index: true,
-            element: <DashboardPage />,
-          },
           {
             path: 'profile',
             element: <ProfilePage />,
           },
           {
             path: 'downloads',
-            element: <DashboardPage />, // TODO: Create MyDownloadsPage
+            element: <div className="p-6"><p>My Downloads - Coming Soon</p></div>,
           },
           {
             path: 'settings',
-            element: <DashboardPage />, // TODO: Create SettingsPage
+            element: <div className="p-6"><p>Settings - Coming Soon</p></div>,
           },
           {
-            path: 'admin',
-            element: <DashboardPage />, // TODO: Create AdminPanelPage
+            path: 'admin/users',
+            element: <AdminUsers />,
+          },
+          {
+            path: 'admin/downloads',
+            element: <AdminDownloads />,
+          },
+          {
+            path: 'admin/contacts',
+            element: <AdminContacts />,
           },
         ],
       },

@@ -18,6 +18,7 @@ import authRoutes from './routes/auth.routes';
 import downloadRoutes from './routes/downloads';
 import contactRoutes from './routes/contact.routes';
 import userRoutes from './routes/user.routes';
+import adminRoutes from './routes/admin';
 
 // Load environment variables
 dotenv.config();
@@ -86,6 +87,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/downloads', downloadRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 Handler (must be after all routes)
 app.use(notFoundHandler);

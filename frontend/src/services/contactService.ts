@@ -7,6 +7,27 @@ export interface ContactFormData {
   message: string;
 }
 
+export interface ContactMessage {
+  _id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  status: 'new' | 'read' | 'replied' | 'archived';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PaginatedContacts {
+  contacts: ContactMessage[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    pages: number;
+  };
+}
+
 export interface ContactResponse {
   success: boolean;
   message: string;
@@ -43,6 +64,23 @@ class ContactService {
         'Falha ao enviar mensagem. Tente novamente mais tarde.'
       );
     }
+  }
+
+  // Admin methods
+  async getContacts(page = 1, limit = 20, status?: string): Promise<PaginatedContacts> {
+    const response = await api.get('/admin/contacts', {
+      params: { page, limit, status },
+    });
+    return response.data.data;
+  }
+
+  async updateContactStatus(id: string, status: string): Promise<ContactMessage> {
+    const response = await api.put(`/admin/contacts/${id}/status`, { status });
+    return response.data.data;
+  }
+
+  async deleteContact(id: string): Promise<void> {
+    await api.delete(`/admin/contacts/${id}`);
   }
 }
 

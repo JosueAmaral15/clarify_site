@@ -41,6 +41,11 @@ class DownloadService {
     }
   }
 
+  // Alias for admin panel
+  async getStats(): Promise<DownloadStats> {
+    return this.getDownloadStats();
+  }
+
   async getDownloadLink(platform: 'windows' | 'macos' | 'linux'): Promise<string> {
     try {
       const response = await api.get(`/downloads/link/${platform}`);
