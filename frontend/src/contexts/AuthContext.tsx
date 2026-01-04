@@ -42,8 +42,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const loadUser = async () => {
       if (token) {
         try {
-          const response = await axios.get(`${API_URL}/api/users/me`);
-          setUser(response.data);
+          const response = await axios.get(`${API_URL}/api/auth/me`);
+          setUser(response.data.data.user);
         } catch (error) {
           console.error('Failed to load user:', error);
           localStorage.removeItem('token');
@@ -57,18 +57,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (email: string, password: string) => {
     const response = await axios.post(`${API_URL}/api/auth/login`, { email, password });
-    const { user, token } = response.data;
-    setUser(user);
-    setToken(token);
-    localStorage.setItem('token', token);
+    const { data } = response.data;
+    setUser(data.user);
+    setToken(data.accessToken);
+    localStorage.setItem('token', data.accessToken);
   };
 
   const register = async (email: string, password: string, name: string) => {
     const response = await axios.post(`${API_URL}/api/auth/register`, { email, password, name });
-    const { user, token } = response.data;
-    setUser(user);
-    setToken(token);
-    localStorage.setItem('token', token);
+    const { data } = response.data;
+    setUser(data.user);
+    setToken(data.accessToken);
+    localStorage.setItem('token', data.accessToken);
   };
 
   const logout = async () => {
