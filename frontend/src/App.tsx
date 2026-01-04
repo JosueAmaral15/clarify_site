@@ -19,6 +19,8 @@ import AdminDownloads from './pages/AdminDownloads';
 import AdminContacts from './pages/AdminContacts';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import Contacts from './pages/admin/Contacts';
+import Downloads from './pages/admin/Downloads';
 import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
@@ -66,6 +68,22 @@ const router = createBrowserRouter([
       {
         path: 'admin/dashboard',
         element: <AdminDashboard />,
+      },
+      {
+        path: 'admin/contacts',
+        element: (
+          <ProtectedRoute requireAdmin>
+            <Contacts />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/downloads',
+        element: (
+          <ProtectedRoute requireAdmin>
+            <Downloads />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'dashboard',
