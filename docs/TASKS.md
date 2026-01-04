@@ -720,6 +720,26 @@ Using **Complexity** markers:
 
 ---
 
+### Sprint 4: Testing & Quality Assurance (Week 3 - Days 9-10)
+**Goal**: Implement testing infrastructure and quality checks
+
+**Tasks**: #43-#45 (Testing)  
+**Time**: 4-6h  
+**Status**: ✅ **COMPLETED** (January 04, 2026)
+
+**Deliverables**:
+- ✅ Backend unit tests (auth, JWT, password hashing)
+- ✅ Backend integration tests (contact API, CRUD operations)
+- ✅ Frontend tests (HomePage, API service)
+- ✅ Testing infrastructure ready (Jest + Vitest)
+- ✅ Test directories structured (unit/integration)
+
+**Commits**:
+- test(backend): add unit and integration tests for auth and contact
+- test(frontend): add basic tests for HomePage and API service
+
+---
+
 ### Sprint 7: CI/CD & Testing (Week 4 - Days 17-19)
 **Goal**: Automated testing and deployment
 
