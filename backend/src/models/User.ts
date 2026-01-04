@@ -8,6 +8,8 @@ export interface IUser extends Document {
   role: 'user' | 'admin';
   avatar?: string;
   isActive: boolean;
+  isDeleted: boolean;
+  deletedAt?: Date;
   resetPasswordToken?: string;
   resetPasswordExpires?: Date;
   createdAt: Date;
@@ -53,6 +55,14 @@ const UserSchema: Schema = new Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,

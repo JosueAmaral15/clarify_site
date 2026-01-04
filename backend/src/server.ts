@@ -8,7 +8,6 @@ import { apiLimiter } from './middleware/rateLimiter';
 import {
   sanitizeMongoQueries,
   preventParameterPollution,
-  sanitizeInput,
   securityHeaders,
 } from './middleware/sanitization';
 import {
@@ -18,6 +17,7 @@ import {
 import authRoutes from './routes/auth.routes';
 import downloadRoutes from './routes/downloads';
 import contactRoutes from './routes/contact.routes';
+import userRoutes from './routes/user.routes';
 
 // Load environment variables
 dotenv.config();
@@ -85,6 +85,7 @@ app.get('/', (_req: Request, res: Response) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/downloads', downloadRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/users', userRoutes);
 
 // 404 Handler (must be after all routes)
 app.use(notFoundHandler);

@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { Layout } from './components/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import DashboardLayout from './layouts/DashboardLayout';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -13,6 +14,7 @@ import RegisterPage from './pages/RegisterPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import DashboardPage from './pages/DashboardPage';
+import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
@@ -57,9 +59,31 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: (
           <ProtectedRoute>
-            <DashboardPage />
+            <DashboardLayout />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            index: true,
+            element: <DashboardPage />,
+          },
+          {
+            path: 'profile',
+            element: <ProfilePage />,
+          },
+          {
+            path: 'downloads',
+            element: <DashboardPage />, // TODO: Create MyDownloadsPage
+          },
+          {
+            path: 'settings',
+            element: <DashboardPage />, // TODO: Create SettingsPage
+          },
+          {
+            path: 'admin',
+            element: <DashboardPage />, // TODO: Create AdminPanelPage
+          },
+        ],
       },
     ],
   },

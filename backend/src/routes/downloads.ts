@@ -18,15 +18,16 @@ router.post(
       .isIn(['windows', 'macos', 'linux', 'other'])
       .withMessage('Plataforma inválida')
   ],
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       // Validação
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ 
+        res.status(400).json({ 
           success: false,
           errors: errors.array() 
         });
+        return;
       }
 
       const { email, platform } = req.body;
@@ -65,7 +66,7 @@ router.post(
 );
 
 // GET /api/downloads/stats - Estatísticas de downloads (protegido - adicionar auth depois)
-router.get('/stats', async (req: Request, res: Response) => {
+router.get('/stats', async (_req: Request, res: Response) => {
   try {
     const total = await Download.countDocuments();
     const byPlatform = await Download.aggregate([
