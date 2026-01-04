@@ -20,6 +20,7 @@ import contactRoutes from './routes/contact.routes';
 import userRoutes from './routes/user.routes';
 import adminRoutes from './routes/admin';
 import newsletterRoutes from './routes/newsletter.routes';
+import analyticsRoutes from './routes/analytics';
 import { verifyEmailConnection } from './config/email.config';
 
 // Load environment variables
@@ -94,6 +95,7 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 // 404 Handler (must be after all routes)
 app.use(notFoundHandler);

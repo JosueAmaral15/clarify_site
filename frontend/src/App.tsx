@@ -17,6 +17,8 @@ import ProfilePage from './pages/ProfilePage';
 import AdminUsers from './pages/AdminUsers';
 import AdminDownloads from './pages/AdminDownloads';
 import AdminContacts from './pages/AdminContacts';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
@@ -56,6 +58,14 @@ const router = createBrowserRouter([
       {
         path: 'reset-password/:token',
         element: <ResetPasswordPage />,
+      },
+      {
+        path: 'admin/login',
+        element: <AdminLogin />,
+      },
+      {
+        path: 'admin/dashboard',
+        element: <AdminDashboard />,
       },
       {
         path: 'dashboard',
