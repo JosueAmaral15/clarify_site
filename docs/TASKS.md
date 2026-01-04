@@ -511,22 +511,28 @@ Using **Complexity** markers:
 
 ### H. Email Service
 
-- [ ] 🟡 #39 Email service setup (2h)
-  - Configure Nodemailer
-  - SMTP provider: Gmail, SendGrid, or Mailgun
-  - Create email templates (HTML):
-    - Welcome email
-    - Password reset email
-    - Contact auto-reply
-    - New release notification
-  - Test email sending
+- [x] 🟡 #39 Email service setup (2h) ✅
+  - Configured Nodemailer ✅
+  - SMTP provider: Gmail (configurable) ✅
+  - Created email templates (HTML): ✅
+    - Welcome email ✅
+    - Password reset email ✅
+    - Contact auto-reply ✅
+    - New release notification ✅
+  - Integrated with auth controller (register, reset password) ✅
+  - Integrated with contact form ✅
+  - Email verification on startup ✅
 
-- [ ] 🟢 #40 New release notifications (1h)
-  - Newsletter subscription (checkbox on homepage)
-  - POST /api/newsletter/subscribe
-  - Store emails in database
-  - Send announcement when new Clarify version released
-  - Unsubscribe link in email
+- [x] 🟢 #40 New release notifications (1h) ✅
+  - Newsletter subscription endpoint created ✅
+  - POST /api/newsletter/subscribe ✅
+  - POST /api/newsletter/unsubscribe ✅
+  - POST /api/newsletter/send-release (Admin only) ✅
+  - GET /api/newsletter/subscribers (Admin only) ✅
+  - Newsletter model with active/inactive status ✅
+  - Batch email sending (50 emails at a time) ✅
+  - Unsubscribe link in emails ✅
+  - Rate limiting (3 subscriptions/hour) ✅
 
 ---
 
@@ -691,23 +697,42 @@ Using **Complexity** markers:
 
 ---
 
-### Sprint 6: CI/CD & Testing (Week 3-4 - Days 14-16)
+### Sprint 6: Email Service (Week 3-4 - Days 14-16)
+**Goal**: Email notifications and newsletter system
+
+**Tasks**: #39-#40 (Email Service + Newsletter)  
+**Time**: 3h  
+**Status**: ✅ **COMPLETED** (January 04, 2026)
+
+**Deliverables**:
+- ✅ Nodemailer configured with Gmail SMTP
+- ✅ 5 HTML email templates created
+- ✅ Welcome emails sent on registration
+- ✅ Password reset emails with secure tokens
+- ✅ Contact form auto-replies and admin notifications
+- ✅ Newsletter subscription system
+- ✅ Release notification system (batch sending)
+- ✅ All email services integrated and tested
+
+---
+
+### Sprint 7: CI/CD & Testing (Week 4 - Days 17-19)
 **Goal**: Automated testing and deployment
 
-**Tasks**: #39-#45 (CI/CD + Tests)  
+**Tasks**: #41-#45 (CI/CD + Tests)  
 **Time**: 10-12h  
 **Status**: ⏳ Not Started
 
 **Deliverables**:
-- ✅ GitHub Actions CI/CD pipeline running
-- ✅ Auto-deployment to Vercel + Railway
-- ✅ Backend tests >85% coverage
-- ✅ Frontend tests >80% coverage
-- ✅ Security audit passing
+- ⏳ GitHub Actions CI/CD pipeline running
+- ⏳ Auto-deployment to Vercel + Railway
+- ⏳ Backend tests >85% coverage
+- ⏳ Frontend tests >80% coverage
+- ⏳ Security audit passing
 
 ---
 
-### Sprint 7: Documentation & Launch (Week 4 - Days 17-18)
+### Sprint 8: Documentation & Launch (Week 4 - Days 20-21)
 **Goal**: Complete documentation and go live
 
 **Tasks**: #46-#49 (Documentation)  
@@ -715,20 +740,20 @@ Using **Complexity** markers:
 **Status**: ⏳ Not Started
 
 **Deliverables**:
-- ✅ API documentation complete
-- ✅ Architecture documentation complete
-- ✅ OWASP checklist verified
-- ✅ Rollback plan ready
-- ✅ Site live in production!
+- ⏳ API documentation complete
+- ⏳ Architecture documentation complete
+- ⏳ OWASP checklist verified
+- ⏳ Rollback plan ready
+- ⏳ Site live in production!
 
 ---
 
 ## 📈 Progress
 
 **Total Tasks**: 49 tasks  
-**Completed**: 38 (78%)  
+**Completed**: 40 (82%)  
 **In Progress**: 0 (0%)  
-**Not Started**: 11 (22%)
+**Not Started**: 9 (18%)
 
 **MUST HAVE**: 49 tasks  
 **SHOULD HAVE**: 0 tasks (Phase 2)  

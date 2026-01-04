@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import Contact from '../models/Contact';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
+import { EmailService } from '../services/email.service';
 
 const router = Router();
 
@@ -88,8 +89,11 @@ router.post(
         status: 'new',
       });
 
-      // TODO: Send email notification to admin
-      // TODO: Send confirmation email to user
+      // Send emails (async, don't block response)
+      Promise.all([
+        EmailService.sendContactAutoReply(email, name),
+        EmailService.notifyAdminNewContact({ name, email, subject, message }),
+      ]).catch(err => console.error('Failed to send contact emails:', err));
 
       res.status(201).json({
         success: true,

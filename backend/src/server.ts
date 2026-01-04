@@ -19,6 +19,8 @@ import downloadRoutes from './routes/downloads';
 import contactRoutes from './routes/contact.routes';
 import userRoutes from './routes/user.routes';
 import adminRoutes from './routes/admin';
+import newsletterRoutes from './routes/newsletter.routes';
+import { verifyEmailConnection } from './config/email.config';
 
 // Load environment variables
 dotenv.config();
@@ -29,6 +31,9 @@ const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
 connectDB();
+
+// Verify email connection (optional - won't block startup)
+verifyEmailConnection();
 
 // Security Middleware (OWASP Top 10 Protection)
 // 1. Security Headers
@@ -88,6 +93,7 @@ app.use('/api/downloads', downloadRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/newsletter', newsletterRoutes);
 
 // 404 Handler (must be after all routes)
 app.use(notFoundHandler);

@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import User from '../models/User';
 import { AuthRequest } from '../middleware/auth';
 import { generateAccessToken, generateRefreshToken } from '../utils/jwt';
+import { EmailService } from '../services/email.service';
 
 /**
  * Register new user
@@ -40,6 +41,11 @@ export const register = async (req: AuthRequest, res: Response): Promise<void> =
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
+
+    // Send welcome email (async, don't wait)
+    EmailService.sendWelcomeEmail(user.email, user.name).catch(err =>
+      console.error('Failed to send welcome email:', err)
+    );
 
     res.status(201).json({
       success: true,
@@ -190,9 +196,10 @@ export const forgotPassword = async (
     user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
     await user.save();
 
-    // TODO: Send email with reset link
-    // const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-    // await sendPasswordResetEmail(user.email, resetUrl);
+    // Send password reset email (async, don't wait)
+    EmailService.sendPasswordResetEmail(user.email, resetToken).catch(err =>
+      console.error('Failed to send password reset email:', err)
+    );
 
     res.status(200).json({
       success: true,

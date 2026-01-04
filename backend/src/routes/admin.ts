@@ -59,15 +59,16 @@ router.get('/users', async (req, res) => {
  * GET /api/admin/users/:id
  * Get user details by ID
  */
-router.get('/users/:id', async (req, res) => {
+router.get('/users/:id', async (req, res): Promise<void> => {
   try {
     const user = await User.findById(req.params.id).select('-password');
 
     if (!user) {
-      return res.status(404).json({
+      res.status(404).json({
         success: false,
         message: 'User not found',
       });
+      return;
     }
 
     res.json({
@@ -86,23 +87,25 @@ router.get('/users/:id', async (req, res) => {
  * PUT /api/admin/users/:id/ban
  * Ban a user (set isActive to false)
  */
-router.put('/users/:id/ban', async (req, res) => {
+router.put('/users/:id/ban', async (req, res): Promise<void> => {
   try {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-      return res.status(404).json({
+      res.status(404).json({
         success: false,
         message: 'User not found',
       });
+      return;
     }
 
     // Prevent banning admin users
     if (user.role === 'admin') {
-      return res.status(403).json({
+      res.status(403).json({
         success: false,
         message: 'Cannot ban admin users',
       });
+      return;
     }
 
     user.isActive = false;
@@ -125,15 +128,16 @@ router.put('/users/:id/ban', async (req, res) => {
  * PUT /api/admin/users/:id/unban
  * Unban a user (set isActive to true)
  */
-router.put('/users/:id/unban', async (req, res) => {
+router.put('/users/:id/unban', async (req, res): Promise<void> => {
   try {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-      return res.status(404).json({
+      res.status(404).json({
         success: false,
         message: 'User not found',
       });
+      return;
     }
 
     user.isActive = true;
@@ -156,7 +160,7 @@ router.put('/users/:id/unban', async (req, res) => {
  * GET /api/admin/stats
  * Get admin dashboard statistics
  */
-router.get('/stats', async (req, res) => {
+router.get('/stats', async (_req, res): Promise<void> => {
   try {
     const totalUsers = await User.countDocuments();
     const activeUsers = await User.countDocuments({ isActive: true });
@@ -233,15 +237,16 @@ router.get('/contacts', async (req, res) => {
  * PUT /api/admin/contacts/:id/status
  * Update contact message status
  */
-router.put('/contacts/:id/status', async (req, res) => {
+router.put('/contacts/:id/status', async (req, res): Promise<void> => {
   try {
     const { status } = req.body;
 
     if (!['new', 'read', 'replied', 'archived'].includes(status)) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: 'Invalid status. Must be: new, read, replied, or archived',
       });
+      return;
     }
 
     const contact = await Contact.findByIdAndUpdate(
@@ -251,10 +256,11 @@ router.put('/contacts/:id/status', async (req, res) => {
     );
 
     if (!contact) {
-      return res.status(404).json({
+      res.status(404).json({
         success: false,
         message: 'Contact message not found',
       });
+      return;
     }
 
     res.json({
@@ -274,15 +280,16 @@ router.put('/contacts/:id/status', async (req, res) => {
  * DELETE /api/admin/contacts/:id
  * Delete a contact message
  */
-router.delete('/contacts/:id', async (req, res) => {
+router.delete('/contacts/:id', async (req, res): Promise<void> => {
   try {
     const contact = await Contact.findByIdAndDelete(req.params.id);
 
     if (!contact) {
-      return res.status(404).json({
+      res.status(404).json({
         success: false,
         message: 'Contact message not found',
       });
+      return;
     }
 
     res.json({
