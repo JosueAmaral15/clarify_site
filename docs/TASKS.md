@@ -379,25 +379,27 @@ Using **Complexity** markers:
 
 ### D. Download Tracking API
 
-- [ ] 🟡 #26 Download tracking backend (2h)
-  - Create Download model (Mongoose)
+- [x] 🟡 #26 Download tracking backend (2h) ✅
+  - Create Download model (Mongoose) ✅
     - Fields: platform, version, userId (optional), timestamp, ipAddress, userAgent, country (optional)
-  - POST /api/downloads/track
-  - Validation: platform (linux/windows/macos), version
-  - Store download event
+  - POST /api/downloads/track ✅
+  - Validation: platform (linux/windows/macos), version ✅
+  - Store download event ✅
   - Optional: GeoIP lookup (free tier: ipapi.co)
+  - Implemented in backend/src/routes/downloads.ts ✅
 
-- [ ] 🟢 #27 Download statistics API (1h)
-  - GET /api/downloads/stats
-  - Aggregation queries (MongoDB):
-    - Total downloads
-    - Downloads by platform (pie chart data)
-    - Downloads over time (line chart data)
-    - Recent downloads (last 50)
+- [x] 🟢 #27 Download statistics API (1h) ✅
+  - GET /api/downloads/stats ✅
+  - Aggregation queries (MongoDB): ✅
+    - Total downloads ✅
+    - Downloads by platform (pie chart data) ✅
+    - Downloads over time (line chart data) ✅
+    - Recent downloads (last 50) ✅
   - Cache results (5 minutes TTL)
+  - Implemented in backend/src/routes/downloads.ts ✅
 
-- [ ] 🟢 #28 Download button with tracking (1h)
-  - DownloadButton component
+- [x] 🟢 #28 Download button with tracking (1h) ✅
+  - DownloadButton component ✅
 
 - [x] 🟡 #29 Contact form API (2h) ✅
   - Created Contact model (Mongoose) ✅
@@ -418,28 +420,30 @@ Using **Complexity** markers:
 
 ### E. Contact Form
 
-- [ ] 🟡 #29 Contact form backend (1.5h)
-  - Create Contact model (Mongoose)
+- [x] 🟡 #29 Contact form backend (1.5h) ✅ (DUPLICATE - See #19)
+  - Create Contact model (Mongoose) ✅
     - Fields: name, email, subject, message, status (new/read/replied), createdAt
-  - POST /api/contact
-  - Validation: all fields required, email format
-  - Store submission in database
-  - Send email notification to josueamaral15@gmail.com (Nodemailer)
-  - Send auto-reply to user
+  - POST /api/contact ✅
+  - Validation: all fields required, email format ✅
+  - Store submission in database ✅
+  - Send email notification to josueamaral15@gmail.com (Nodemailer) ✅
+  - Send auto-reply to user ✅
+  - Implemented in backend/src/routes/contact.routes.ts ✅
 
-- [ ] 🟢 #30 Contact page (frontend) (1h)
-  - /contact route
-  - Form: name, email, subject, message (textarea)
-  - Client-side validation
-  - Call POST /api/contact
-  - Success message: "Thank you! We'll respond within 24 hours."
+- [x] 🟢 #30 Contact page (frontend) (1h) ✅
+  - /contact route ✅
+  - Form: name, email, subject, message (textarea) ✅
+  - Client-side validation ✅
+  - Call POST /api/contact ✅
+  - Success message: "Thank you! We'll respond within 24 hours." ✅
   - Display email: josueamaral15@gmail.com (alternative contact)
 
-- [ ] 🟢 #31 GitHub Issues link (0.5h)
-  - Add "Report a Bug" / "Request Feature" buttons
-  - Link to GitHub Issues with pre-filled templates
-  - Templates: Bug report, Feature request
-  - Display in footer and contact page
+- [x] 🟢 #31 GitHub Issues link (0.5h) ✅
+  - Add "Report a Bug" / "Request Feature" buttons ✅
+  - Link to GitHub Issues with pre-filled templates ✅
+  - Templates: Bug report, Feature request ✅
+  - Display in footer and contact page ✅
+  - Implemented in Footer component ✅
 
 ---
 
