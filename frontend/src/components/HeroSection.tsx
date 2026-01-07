@@ -149,7 +149,7 @@ export default function HeroSection() {
 
               {/* Floating Badge */}
               <div className="absolute -top-4 -right-4 bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-bold shadow-lg animate-bounce">
-                Free & Open Source
+                Free to Use
               </div>
             </div>
 
@@ -187,7 +187,7 @@ export default function HeroSection() {
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🆓</span>
-              <span>MIT License</span>
+              <span>Free Download</span>
             </div>
           </div>
         </div>

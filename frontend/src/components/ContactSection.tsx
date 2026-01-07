@@ -28,7 +28,7 @@ export default function ContactSection() {
       
       setSubmitStatus({
         type: 'success',
-        message: 'Mensagem enviada com sucesso! Responderemos em breve.',
+        message: 'Message sent successfully! We will respond shortly.',
       });
       
       // Clear form
@@ -36,7 +36,7 @@ export default function ContactSection() {
     } catch (error: any) {
       setSubmitStatus({
         type: 'error',
-        message: error.message || 'Falha ao enviar mensagem. Tente novamente.',
+        message: error.message || 'Failed to send message. Please try again.',
       });
     } finally {
       setIsSubmitting(false);
@@ -57,10 +57,10 @@ export default function ContactSection() {
           {/* Section Header */}
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Entre em Contato
+              Get in Touch
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              Tem dúvidas, sugestões ou precisa de suporte? Envie-nos uma mensagem!
+              Have questions, suggestions, or need support? Send us a message!
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function ContactSection() {
                     htmlFor="name"
                     className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                   >
-                    Nome *
+                    Name *
                   </label>
                   <input
                     type="text"
@@ -84,7 +84,7 @@ export default function ContactSection() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    placeholder="Seu nome"
+                    placeholder="Your name"
                   />
                 </div>
 
@@ -114,7 +114,7 @@ export default function ContactSection() {
                     htmlFor="subject"
                     className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                   >
-                    Assunto *
+                    Subject *
                   </label>
                   <input
                     type="text"
@@ -124,7 +124,7 @@ export default function ContactSection() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    placeholder="Como podemos ajudar?"
+                    placeholder="How can we help?"
                   />
                 </div>
 
@@ -134,7 +134,7 @@ export default function ContactSection() {
                     htmlFor="message"
                     className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                   >
-                    Mensagem *
+                    Message *
                   </label>
                   <textarea
                     id="message"
@@ -144,7 +144,7 @@ export default function ContactSection() {
                     required
                     rows={5}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
-                    placeholder="Descreva sua dúvida ou sugestão..."
+                    placeholder="Describe your question or suggestion..."
                   />
                 </div>
 
@@ -154,7 +154,7 @@ export default function ContactSection() {
                   disabled={isSubmitting}
                   className="w-full bg-blue-600 text-white px-6 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  {isSubmitting ? '⏳ Enviando...' : '📨 Enviar Mensagem'}
+                  {isSubmitting ? '⏳ Sending...' : '📨 Send Message'}
                 </button>
 
                 {/* Status Messages */}
@@ -177,23 +177,23 @@ export default function ContactSection() {
               {/* Support Box */}
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  🤝 Suporte
+                  🤝 Support
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Nossa equipe está pronta para ajudar você com qualquer questão sobre o Clarify.
+                  Our team is ready to help you with any questions about Clarify.
                 </p>
                 <ul className="space-y-3 text-gray-700 dark:text-gray-300">
                   <li className="flex items-start gap-2">
                     <span>✅</span>
-                    <span>Resposta em até 24h</span>
+                    <span>Response within 24h</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span>✅</span>
-                    <span>Suporte técnico gratuito</span>
+                    <span>Free technical support</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span>✅</span>
-                    <span>Documentação completa</span>
+                    <span>Complete documentation</span>
                   </li>
                 </ul>
               </div>

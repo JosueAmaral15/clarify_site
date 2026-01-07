@@ -91,10 +91,10 @@ export function Navbar() {
               </div>
             ) : (
               <>
-                <Link to="/login" className="btn-secondary">
+                <Link to="/login" className="text-white bg-blue-600 px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
                   Login
                 </Link>
-                <Link to="/download" className="btn-primary">
+                <Link to="/download" className="text-white bg-green-600 px-6 py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold">
                   Download
                 </Link>
               </>

@@ -48,20 +48,20 @@ class ContactService {
       // Handle validation errors
       if (error.response?.status === 400) {
         throw new Error(
-          error.response.data.message || 'Por favor, verifique os dados do formulário.'
+          error.response.data.message || 'Please check the form data.'
         );
       }
       
       // Handle rate limiting
       if (error.response?.status === 429) {
         throw new Error(
-          'Você enviou muitas mensagens. Tente novamente mais tarde.'
+          'You have sent too many messages. Please try again later.'
         );
       }
       
       // Generic error
       throw new Error(
-        'Falha ao enviar mensagem. Tente novamente mais tarde.'
+        'Failed to send message. Please try again later.'
       );
     }
   }

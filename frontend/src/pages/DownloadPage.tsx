@@ -77,15 +77,15 @@ export default function DownloadPage() {
   };
 
   return (
-    <div className="section-padding max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="text-center mb-12">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <div className="section-padding max-w-7xl mx-auto pb-16">
+        {/* Header */}
+        <div className="text-center mb-12 pt-24">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
           Download Clarify
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
           Choose your platform and start simplifying your text processing workflow today.
-          Clarify is completely free and open source.
         </p>
       </div>
 
@@ -99,7 +99,7 @@ export default function DownloadPage() {
           return (
             <div
               key={option.id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all"
+              className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all"
             >
               <div className="text-center">
                 <Icon className="text-6xl text-blue-600 dark:text-blue-400 mx-auto mb-4" />
@@ -190,11 +190,12 @@ export default function DownloadPage() {
       </div>
 
       {/* Installation Instructions */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+      <div className="bg-blue-50 dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-blue-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+          <span>📋</span>
           Installation Instructions
         </h2>
-        <div className="space-y-6">
+        <div className="space-y-6 mb-8">
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
               Windows
@@ -226,6 +227,7 @@ export default function DownloadPage() {
             </ol>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -76,7 +76,7 @@ export default function DownloadSection() {
   };
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-24 bg-white dark:bg-gray-800">
+    <section ref={sectionRef} className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
       <div className={`container mx-auto px-4 animate-on-scroll ${isVisible ? 'visible' : ''}`}>
         {/* Section Header */}
         <div className="text-center mb-12">
@@ -84,7 +84,7 @@ export default function DownloadSection() {
             Download Clarify
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Choose your platform and start boosting your productivity today. Free and open source.
+            Choose your platform and start boosting your productivity today.
           </p>
           
           {/* Download Count Badge */}
@@ -152,7 +152,7 @@ export default function DownloadSection() {
                       const stats = await downloadService.getDownloadStats();
                       setDownloadStats(stats);
                     } catch (error) {
-                      alert('Download temporariamente indisponível. Tente novamente.');
+                      alert('Download temporarily unavailable. Please try again.');
                     } finally {
                       setIsDownloading(false);
                     }
@@ -161,7 +161,7 @@ export default function DownloadSection() {
                   className="block w-full bg-green-600 text-white text-center px-6 py-4 rounded-lg font-bold text-lg hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="mr-2">{isDownloading ? '⏳' : '⬇️'}</span>
-                  {isDownloading ? 'Preparando download...' : `Download for ${currentPlatform.name}`}
+                  {isDownloading ? 'Preparing download...' : `Download for ${currentPlatform.name}`}
                 </button>
 
                 {/* File Info */}
@@ -171,7 +171,7 @@ export default function DownloadSection() {
                 </div>
 
                 {/* System Requirements */}
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                <div className="bg-blue-50 dark:bg-gray-800 p-4 rounded-lg border border-blue-200 dark:border-gray-700">
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                     System Requirements
                   </h4>
@@ -182,8 +182,9 @@ export default function DownloadSection() {
               </div>
 
               {/* Right: Installation Instructions */}
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="bg-blue-50 dark:bg-gray-800 p-6 rounded-lg border border-blue-200 dark:border-gray-700">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <span>📋</span>
                   Installation Instructions
                 </h4>
                 <ol className="space-y-3">
@@ -200,7 +201,7 @@ export default function DownloadSection() {
                 </ol>
 
                 {/* Links */}
-                <div className="mt-6 space-y-2">
+                <div className="mt-6 pt-4 border-t border-blue-200 dark:border-gray-700 space-y-2">
                   <a
                     href="/docs"
                     className="block text-blue-600 dark:text-blue-400 hover:underline"
@@ -218,7 +219,7 @@ export default function DownloadSection() {
                     📝 Release Notes (v2.9.111) →
                   </a>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/JosueAmaral15/clarify"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block text-blue-600 dark:text-blue-400 hover:underline"
@@ -238,7 +239,7 @@ export default function DownloadSection() {
                 Free Forever
               </h4>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                No hidden costs, no subscriptions. MIT License.
+                No hidden costs, no subscriptions.
               </p>
             </div>
             <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">

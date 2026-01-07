@@ -37,7 +37,7 @@ class AuthService {
     } catch (error: any) {
       console.error('Login failed:', error);
       throw new Error(
-        error.response?.data?.message || 'Falha no login. Verifique suas credenciais.'
+        error.response?.data?.message || 'Login failed. Please check your credentials.'
       );
     }
   }
@@ -55,7 +55,7 @@ class AuthService {
     } catch (error: any) {
       console.error('Registration failed:', error);
       throw new Error(
-        error.response?.data?.message || 'Falha no registro. Tente novamente.'
+        error.response?.data?.message || 'Registration failed. Please try again.'
       );
     }
   }

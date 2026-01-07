@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, useRouteError } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { Layout } from './components/Layout';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import FeaturesPage from './pages/FeaturesPage';
 import DownloadPage from './pages/DownloadPage';
 import DocsPage from './pages/DocsPage';
+import DocsContentPage from './pages/DocsContentPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
@@ -23,11 +24,18 @@ import Contacts from './pages/admin/Contacts';
 import Downloads from './pages/admin/Downloads';
 import NotFoundPage from './pages/NotFoundPage';
 
+// Error boundary component for debugging
+function ErrorBoundary() {
+  const error = useRouteError();
+  console.error('Router Error:', error);
+  return <NotFoundPage />;
+}
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <NotFoundPage />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,
@@ -43,7 +51,16 @@ const router = createBrowserRouter([
       },
       {
         path: 'docs',
-        element: <DocsPage />,
+        children: [
+          {
+            index: true,
+            element: <DocsPage />,
+          },
+          {
+            path: '*',
+            element: <DocsContentPage />,
+          },
+        ],
       },
       {
         path: 'login',

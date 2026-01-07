@@ -49,8 +49,8 @@ export default function FeaturesGrid() {
     {
       id: 8,
       icon: '🆓',
-      title: 'Open Source',
-      description: 'MIT License. Free forever, transparent development, and community-driven improvements.',
+      title: 'Free to Use',
+      description: 'Free to download and use. Professional-grade tools without any cost.',
     },
   ];
 

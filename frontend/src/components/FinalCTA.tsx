@@ -11,8 +11,7 @@ export default function FinalCTA() {
           </h2>
           
           <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of developers who trust Clarify for their text processing needs. 
-            Download for free and start working smarter today.
+            Download Clarify and experience powerful text processing tools for your workflow.
           </p>
 
           {/* CTA Buttons */}

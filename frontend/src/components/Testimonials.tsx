@@ -39,10 +39,10 @@ export default function Testimonials() {
   ];
 
   const stats = [
-    { label: 'GitHub Stars', value: '2,500+', icon: '⭐' },
-    { label: 'Active Users', value: '10,000+', icon: '👥' },
-    { label: 'Downloads', value: '50,000+', icon: '⬇️' },
-    { label: 'Contributors', value: '25+', icon: '🤝' },
+    { label: 'Tools Available', value: '15+', icon: '🛠️' },
+    { label: 'Platforms', value: '3', icon: '💻' },
+    { label: 'Features', value: '50+', icon: '⚡' },
+    { label: 'Free to Use', value: 'Yes', icon: '🆓' },
   ];
 
   return (
@@ -51,10 +51,10 @@ export default function Testimonials() {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Trusted by Developers Worldwide
+            What Users Are Saying
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            See what professionals are saying about Clarify and how it's transforming their workflow.
+            See how Clarify helps developers streamline their text processing workflows.
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export default function Testimonials() {
         {/* Trust Badge */}
         <div className="text-center mt-12">
           <p className="text-lg text-gray-600 dark:text-gray-400">
-            Used by <span className="font-bold text-blue-600 dark:text-blue-400">10,000+ developers</span> from companies around the world
+            Available for <span className="font-bold text-blue-600 dark:text-blue-400">Windows, macOS, and Linux</span>
           </p>
         </div>
       </div>

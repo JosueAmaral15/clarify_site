@@ -34,10 +34,26 @@ class DownloadService {
   async getDownloadStats(): Promise<DownloadStats> {
     try {
       const response = await api.get('/downloads/stats');
-      return response.data;
+      const stats = response.data.data || response.data;
+      
+      // Transform backend format to frontend format
+      return {
+        total: stats.total || 0,
+        byPlatform: {
+          windows: stats.byPlatform?.find((p: any) => p._id === 'windows')?.count || 0,
+          macos: stats.byPlatform?.find((p: any) => p._id === 'macos')?.count || 0,
+          linux: stats.byPlatform?.find((p: any) => p._id === 'linux')?.count || 0,
+        },
+        recent: stats.recent || [],
+      };
     } catch (error) {
       console.error('Failed to fetch download stats:', error);
-      throw error;
+      // Return default stats instead of throwing
+      return {
+        total: 0,
+        byPlatform: { windows: 0, macos: 0, linux: 0 },
+        recent: [],
+      };
     }
   }
 
