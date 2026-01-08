@@ -1,17 +1,42 @@
 import request from 'supertest';
 import app from '../../server';
 import Contact from '../../models/Contact';
+import User from '../../models/User';
 import mongoose from 'mongoose';
 
 describe('Contact API', () => {
+  let adminToken: string;
+  let adminUserId: string;
+
   beforeAll(async () => {
     if (mongoose.connection.readyState === 0) {
       await mongoose.connect(process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/clarify_test');
     }
+
+    // Create admin user for tests
+    const adminUser = await User.create({
+      name: 'Admin User',
+      email: 'admin@test.com',
+      password: 'Admin123!@#',
+      role: 'admin',
+      isActive: true,
+    });
+
+    adminUserId = adminUser._id.toString();
+
+    // Generate token with actual user ID
+    const payload = {
+      userId: adminUserId,
+      email: 'admin@test.com',
+      role: 'admin',
+    };
+    const jwt = require('jsonwebtoken');
+    adminToken = jwt.sign(payload, process.env.JWT_SECRET || 'test-jwt-secret', { expiresIn: '1h' });
   });
 
   afterAll(async () => {
     await Contact.deleteMany({});
+    await User.deleteMany({});
     await mongoose.connection.close();
   });
 
@@ -91,7 +116,7 @@ describe('Contact API', () => {
     });
   });
 
-  describe('GET /api/contacts', () => {
+  describe('GET /api/admin/contacts', () => {
     it('should return all contacts for admin', async () => {
       // Create test contacts
       await Contact.create([
@@ -100,16 +125,17 @@ describe('Contact API', () => {
       ]);
 
       const response = await request(app)
-        .get('/api/contacts')
-        .set('Authorization', 'Bearer admin-token') // Mock admin auth
+        .get('/api/admin/contacts')
+        .set('Authorization', `Bearer ${adminToken}`)
         .expect(200);
 
-      expect(Array.isArray(response.body)).toBe(true);
-      expect(response.body.length).toBe(2);
+      expect(response.body.success).toBe(true);
+      expect(Array.isArray(response.body.data.contacts)).toBe(true);
+      expect(response.body.data.contacts.length).toBe(2);
     });
   });
 
-  describe('PATCH /api/contacts/:id', () => {
+  describe('PUT /api/admin/contacts/:id/status', () => {
     it('should update contact status', async () => {
       const contact = await Contact.create({
         name: 'Test User',
@@ -120,16 +146,17 @@ describe('Contact API', () => {
       });
 
       const response = await request(app)
-        .patch(`/api/contacts/${contact._id}`)
-        .set('Authorization', 'Bearer admin-token')
-        .send({ status: 'contacted' })
+        .put(`/api/admin/contacts/${contact._id}/status`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ status: 'read' })
         .expect(200);
 
-      expect(response.body.status).toBe('contacted');
+      expect(response.body.success).toBe(true);
+      expect(response.body.data.status).toBe('read');
     });
   });
 
-  describe('DELETE /api/contacts/:id', () => {
+  describe('DELETE /api/admin/contacts/:id', () => {
     it('should delete contact', async () => {
       const contact = await Contact.create({
         name: 'Test User',
@@ -139,8 +166,8 @@ describe('Contact API', () => {
       });
 
       await request(app)
-        .delete(`/api/contacts/${contact._id}`)
-        .set('Authorization', 'Bearer admin-token')
+        .delete(`/api/admin/contacts/${contact._id}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .expect(200);
 
       const deleted = await Contact.findById(contact._id);
