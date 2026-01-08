@@ -22,42 +22,37 @@
 - [x] Fixed JWT import errors in tests
 - [x] Fixed Contact model validation in tests
 - [x] Improved coverage from 30.12% to 32.47%
+- [x] **Task #1 Complete**: Fixed failing integration test routes and auth setup
 
 ---
 
 ## 🔥 Active Tasks (Sprint 9)
 
-### Task #1: Fix Failing Integration Tests [HIGH PRIORITY]
-**Status**: 🔴 In Progress  
-**Problem**: 5 tests failing with 404 errors (route not found)  
-**Tests failing**:
-- `POST /api/contact` - rate limiting test
-- `GET /api/contacts` - admin list
-- `PATCH /api/contacts/:id` - update status
-- `DELETE /api/contacts/:id` - delete contact
+### Task #1: Fix Failing Integration Tests ✅ COMPLETE
+**Status**: ✅ Complete  
+**Completed**: Fixed route paths, added proper JWT auth setup  
 
-**Action Plan**:
-1. Check actual route paths in contact.routes.ts
-2. Fix route paths in tests to match actual routes
-3. Add proper authentication mocking for admin routes
-4. Re-run tests to verify fixes
-
-**Estimate**: 30 minutes
+**What was done**:
+- Created authHelper.ts for test token generation
+- Fixed routes (/api/contacts → /api/admin/contacts)
+- Created real admin user in tests with proper JWT tokens
+- Fixed HTTP methods (PATCH → PUT)
 
 ---
 
-### Task #2: Expand Auth Route Tests [MEDIUM PRIORITY]
-**Status**: 📋 Planned  
+### Task #2: Expand Auth Route Tests [HIGH PRIORITY]
+**Status**: 🔴 In Progress  
 **Goal**: Increase auth route coverage to >90%
 
-**Subtasks**:
-- [ ] Add tests for successful registration
-- [ ] Add tests for successful login with JWT validation
-- [ ] Add tests for logout functionality
-- [ ] Add tests for refresh token flow
-- [ ] Add tests for password reset flow
+**Current Status**: Basic validation tests exist (3 tests)  
+**Need to add**:
+- [ ] Full registration flow test (create user, verify in DB)
+- [ ] Full login flow test (JWT validation, cookie setting)
+- [ ] Logout test (clear cookies)
+- [ ] Refresh token test
+- [ ] Password validation edge cases
 
-**Estimate**: 1.5 hours
+**Estimate**: 1 hour
 
 ---
 
