@@ -18,6 +18,214 @@ export default function DocsContentPage() {
   }, [hash]);
 
   const sections = {
+    'installation': {
+      title: 'Installation',
+      icon: '📥',
+      content: [
+        {
+          heading: 'Windows Installation',
+          text: 'Download the Windows installer (.exe) and run it. Follow the setup wizard to complete installation. Clarify will be added to your Start Menu and desktop.'
+        },
+        {
+          heading: 'macOS Installation',
+          text: 'Download the macOS package (.dmg), open it, and drag Clarify to your Applications folder. You may need to allow the app in System Preferences > Security & Privacy.'
+        },
+        {
+          heading: 'Linux Installation',
+          text: 'Download the .deb package for Debian/Ubuntu or .rpm for Fedora/CentOS. Install using: sudo dpkg -i clarify.deb (Debian/Ubuntu) or sudo rpm -i clarify.rpm (Fedora/CentOS).'
+        },
+        {
+          heading: 'Verification',
+          text: 'After installation, run "clarify --version" in your terminal to verify the installation was successful.'
+        }
+      ]
+    },
+    'quick-start': {
+      title: 'Quick Start Guide',
+      icon: '🚀',
+      content: [
+        {
+          heading: 'Step 1: Launch Clarify',
+          text: 'Open Clarify from your Applications folder (macOS), Start Menu (Windows), or Applications menu (Linux).'
+        },
+        {
+          heading: 'Step 2: Choose Your Tool',
+          text: 'Select from 15+ powerful tools: Search & Replace, JSON Tools, Text Processing, and more. Each tool has a dedicated interface optimized for that task.'
+        },
+        {
+          heading: 'Step 3: Process Your Data',
+          text: 'Load your file or paste text directly. Configure your processing options and click "Process" to see results instantly.'
+        },
+        {
+          heading: 'Step 4: Save or Export',
+          text: 'Save your results to a new file, copy to clipboard, or export in various formats (txt, json, csv, etc.).'
+        }
+      ]
+    },
+    'requirements': {
+      title: 'System Requirements',
+      icon: '💻',
+      content: [
+        {
+          heading: 'Minimum Requirements',
+          text: 'OS: Windows 10+, macOS 11+, Linux (Ubuntu 20.04+) | RAM: 4GB | Storage: 500MB | Processor: Dual-core 2.0 GHz'
+        },
+        {
+          heading: 'Recommended Requirements',
+          text: 'OS: Windows 11, macOS 13+, Linux (Ubuntu 22.04+) | RAM: 8GB+ | Storage: 1GB | Processor: Quad-core 2.5+ GHz'
+        },
+        {
+          heading: 'Additional Requirements',
+          text: 'Internet connection required for: API features, cloud sync, updates, and AI-powered tools (OpenAI/Gemini integration).'
+        }
+      ]
+    },
+    'search-replace': {
+      title: 'Search & Replace',
+      icon: '🔍',
+      content: [
+        {
+          heading: 'Basic Search',
+          text: 'Enter your search term to find all occurrences in your text. Use case-sensitive or case-insensitive matching.'
+        },
+        {
+          heading: 'Regular Expressions',
+          text: 'Use regex patterns for advanced searching: \\d+ for numbers, [A-Z]+ for uppercase words, (\\w+)@(\\w+) for emails. Supports capture groups and backreferences.'
+        },
+        {
+          heading: 'Replace Operations',
+          text: 'Replace single or all occurrences. Use $1, $2 for capture group replacements. Preview changes before applying.'
+        },
+        {
+          heading: 'Multi-File Search',
+          text: 'Search across multiple files simultaneously. Filter by file type, apply batch replacements, and save modified files.'
+        }
+      ]
+    },
+    'json-tools': {
+      title: 'JSON Tools',
+      icon: '📄',
+      content: [
+        {
+          heading: 'JSON Validation',
+          text: 'Automatically validate JSON syntax. Highlights errors with line numbers and detailed error messages.'
+        },
+        {
+          heading: 'JSON Formatting',
+          text: 'Format and prettify JSON with customizable indentation (2, 4 spaces or tabs). Minify JSON to reduce file size.'
+        },
+        {
+          heading: 'JSON Transformation',
+          text: 'Rewrite JSON structures, extract specific fields, flatten nested objects, or merge multiple JSON files.'
+        },
+        {
+          heading: 'JSON Translation',
+          text: 'Translate JSON values using AI (OpenAI/Gemini). Preserve structure while translating content across 7 supported languages.'
+        }
+      ]
+    },
+    'text-processing': {
+      title: 'Text Processing',
+      icon: '📝',
+      content: [
+        {
+          heading: 'Text Extraction',
+          text: 'Extract emails, URLs, phone numbers, dates, or custom patterns from any text using regex or built-in extractors.'
+        },
+        {
+          heading: 'Text Transformation',
+          text: 'Convert case (uppercase, lowercase, title case), remove duplicates, sort lines, trim whitespace, and more.'
+        },
+        {
+          heading: 'Text Formatting',
+          text: 'Add prefixes/suffixes, wrap text, split/join lines, format lists, and apply custom transformations.'
+        },
+        {
+          heading: 'Batch Processing',
+          text: 'Process multiple text files at once. Apply transformations to entire folders with file filtering.'
+        }
+      ]
+    },
+    'plugins': {
+      title: 'Plugin Development',
+      icon: '🔌',
+      content: [
+        {
+          heading: 'Getting Started with Plugins',
+          text: 'Clarify supports custom plugins written in JavaScript/TypeScript. Extend functionality and create custom tools tailored to your workflow.'
+        },
+        {
+          heading: 'Plugin API',
+          text: 'Use the Clarify Plugin API to access core functionality: text processing, file I/O, UI components, and more. Full TypeScript definitions included.'
+        },
+        {
+          heading: 'Creating Your First Plugin',
+          text: 'Use the plugin template generator: clarify create-plugin my-plugin. Edit plugin.js, add your logic, and install locally for testing.'
+        },
+        {
+          heading: 'Publishing Plugins',
+          text: 'Share your plugins with the community. Publish to the Clarify Plugin Registry or distribute via GitHub.'
+        }
+      ]
+    },
+    'config': {
+      title: 'Configuration',
+      icon: '⚙️',
+      content: [
+        {
+          heading: 'General Settings',
+          text: 'Customize theme (light/dark/auto), language preference, default file locations, and auto-save behavior.'
+        },
+        {
+          heading: 'Editor Settings',
+          text: 'Configure font size, line wrapping, syntax highlighting, and keyboard shortcuts for optimal productivity.'
+        },
+        {
+          heading: 'API Configuration',
+          text: 'Set up API keys for OpenAI and Gemini integration. Configure rate limits and usage preferences.'
+        },
+        {
+          heading: 'Advanced Settings',
+          text: 'Enable debug mode, configure logging, set memory limits, and customize plugin paths.'
+        }
+      ]
+    },
+    'troubleshooting': {
+      title: 'Troubleshooting',
+      icon: '🔧',
+      content: [
+        {
+          heading: 'Common Issues',
+          text: 'Installation fails: Check system requirements and admin permissions. App crashes: Clear cache and reinstall. Slow performance: Check available RAM and close other apps.'
+        },
+        {
+          heading: 'Error Messages',
+          text: 'Parse Error: Check JSON syntax. File Not Found: Verify file path. Permission Denied: Run with appropriate permissions.'
+        },
+        {
+          heading: 'Getting Help',
+          text: 'Check logs in ~/.clarify/logs (Linux/Mac) or %APPDATA%/Clarify/logs (Windows). Report bugs via our contact form or email support@clarify.com.'
+        }
+      ]
+    },
+    'community': {
+      title: 'Community',
+      icon: '👥',
+      content: [
+        {
+          heading: 'Join the Community',
+          text: 'Connect with other Clarify users on our community forums, Discord server, and GitHub discussions. Share tips, ask questions, and collaborate.'
+        },
+        {
+          heading: 'Contributing',
+          text: 'Clarify welcomes contributions! Report bugs, suggest features, or contribute to documentation. Check our GitHub repository for contribution guidelines.'
+        },
+        {
+          heading: 'Stay Updated',
+          text: 'Follow us on Twitter/X for updates, tips, and announcements. Subscribe to our newsletter for release notes and feature highlights.'
+        }
+      ]
+    },
     'user-guide': {
       title: 'User Guide',
       icon: '📚',

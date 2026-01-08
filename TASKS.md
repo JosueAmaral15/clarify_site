@@ -1,15 +1,127 @@
 # 📋 Clarify Site - Active Tasks
 
-**Date**: 2026-01-08  
+**Date**: 2026-01-08 16:35 UTC  
 **Protocol**: Simplicidade 3 - Solo Developer  
-**Current Sprint**: Sprint 9 - Testing & Quality
+**Current Sprint**: URGENT - Site Issues (Priority Override)
 
 ---
 
-## 🎯 Current Focus: Backend Test Coverage
+## 🚨 URGENT: Site Issues Discovered (NEW PRIORITY)
 
-**Goal**: Achieve >85% backend test coverage (currently 32.47%)  
-**Strategy**: Fix existing failures, then expand coverage methodically
+**Status**: Investigation Complete - Ready to Fix  
+**Report**: See LINK_AUDIT_REPORT.md for full details
+
+### Critical Issues Found:
+1. 🔴 **Documentation navigation broken** (12 doc links go nowhere)
+2. 🟡 **Download buttons are placeholders** (href="#")
+3. 🟢 **Newsletter form not connected** (shows alert)
+
+**Decision**: Pause Sprint 9 (Testing) to fix UX issues first
+
+---
+
+## 🔥 Active Tasks (Site Issues - NEW)
+
+### Task #UX-1: Fix Documentation Navigation [CRITICAL]
+**Status**: 🔴 Ready to Start  
+**Priority**: HIGHEST - Blocks users from finding info
+
+**Problem**:
+- DocsPage has 12 doc topic links
+- Only 4 topics have content in DocsContentPage
+- 8 topics lead to nowhere (#installation, #quick-start, etc.)
+
+**Solution**:
+1. Expand DocsContentPage with all 12 topics
+2. Add basic content for each section
+3. Fix routing to match DocsPage navigation
+4. Test all links work
+
+**Estimate**: 2-3 hours  
+**Complexity**: Medium
+
+**Subtasks**:
+- [ ] Create content structure for 12 topics
+- [ ] Add sections to DocsContentPage (Installation, Quick Start, System Requirements, Search & Replace, JSON Tools, Text Processing, Plugins, Config, Troubleshooting, Community)
+- [ ] Update hash routing logic
+- [ ] Test all DocsPage links
+- [ ] Verify mobile responsiveness
+- [ ] Check dark mode styling
+
+---
+
+### Task #UX-2: Fix Download Button Messaging [MEDIUM]
+**Status**: 📋 Queued (after UX-1)  
+**Priority**: MEDIUM - Can launch without real files
+
+**Problem**:
+- Download buttons show href="#" (placeholder)
+- Users click and nothing happens
+- Clarify software not ready for release yet
+
+**Solution** (Recommended):
+```typescript
+// Option: Show "Coming Soon" message
+const handleDownload = () => {
+  alert('Clarify will be available for download soon! The software is currently in final development. Follow us for release updates.');
+};
+```
+
+**Estimate**: 30 minutes  
+**Complexity**: Low
+
+**Subtasks**:
+- [ ] Update DownloadSection.tsx download handlers
+- [ ] Add "Coming Soon" badge to buttons
+- [ ] Update button text or tooltips
+- [ ] Add visual indicator (opacity or disabled state)
+- [ ] Test user experience
+
+---
+
+### Task #UX-3: Connect Newsletter Form [LOW]
+**Status**: 📋 Queued (after UX-2)  
+**Priority**: LOW - Nice to have, not critical
+
+**Problem**:
+- Form shows JavaScript alert placeholder
+- Backend API exists but not connected
+- No email collection happening
+
+**Solution**:
+- Connect form to `/api/newsletter` endpoint
+- Add loading state
+- Show success/error messages
+- Validate email format
+
+**Estimate**: 1 hour  
+**Complexity**: Low
+
+**Subtasks**:
+- [ ] Update FinalCTA.tsx form handler
+- [ ] Call POST /api/newsletter with email
+- [ ] Add loading spinner during submission
+- [ ] Show success message on save
+- [ ] Handle errors gracefully
+- [ ] Test submission flow
+
+---
+
+## 📊 Sprint 9: Testing & Quality (PAUSED)
+
+**Reason**: UX issues take priority over test coverage  
+**Resume After**: UX-1, UX-2, UX-3 complete
+
+### Completed Before Pause:
+- [x] Task #1: Fix failing tests (30min) - COMPLETE
+- [x] Task #2: Expand auth tests (1h) - COMPLETE
+
+### Remaining (When Resumed):
+- [ ] Task #3: Create download route tests (1h)
+- [ ] Task #4: Add admin route tests (1.5h)
+- [ ] Task #5: Expand to 85% coverage (4-6h)
+
+**Coverage Status**: 36.03% (paused at this level)
 
 ---
 
