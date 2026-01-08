@@ -132,36 +132,16 @@ export default function DownloadSection() {
 
                 {/* Download Button */}
                 <button
-                  onClick={async () => {
-                    setIsDownloading(true);
-                    try {
-                      // Track download
-                      await downloadService.trackDownload({
-                        platform: selectedPlatform,
-                        version: currentPlatform.version,
-                        source: 'website'
-                      });
-                      
-                      // Get download link
-                      const downloadUrl = await downloadService.getDownloadLink(selectedPlatform);
-                      
-                      // Initiate download
-                      window.location.href = downloadUrl;
-                      
-                      // Update stats
-                      const stats = await downloadService.getDownloadStats();
-                      setDownloadStats(stats);
-                    } catch (error) {
-                      alert('Download temporarily unavailable. Please try again.');
-                    } finally {
-                      setIsDownloading(false);
-                    }
+                  onClick={() => {
+                    alert('🚧 Clarify is currently in final development!\n\nThe software will be available for download soon. We\'re putting the finishing touches on the application to ensure the best experience for you.\n\n📧 Subscribe to our newsletter to be notified when Clarify launches!\n\nThank you for your interest! 🙏');
                   }}
-                  disabled={isDownloading}
-                  className="block w-full bg-green-600 text-white text-center px-6 py-4 rounded-lg font-bold text-lg hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="block w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center px-6 py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl mb-4 relative group"
                 >
-                  <span className="mr-2">{isDownloading ? '⏳' : '⬇️'}</span>
-                  {isDownloading ? 'Preparing download...' : `Download for ${currentPlatform.name}`}
+                  <span className="mr-2">🚧</span>
+                  Coming Soon - In Development
+                  <span className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 text-xs px-2 py-1 rounded-full font-bold animate-pulse">
+                    BETA
+                  </span>
                 </button>
 
                 {/* File Info */}
