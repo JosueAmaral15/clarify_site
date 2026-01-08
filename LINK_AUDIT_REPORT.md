@@ -293,3 +293,35 @@ Before marking complete:
 ---
 
 *Generated: 2026-01-08 16:35 UTC*
+
+---
+
+## 🔴 NEWLY DISCOVERED ISSUE (Post-Audit)
+
+### Issue #4: FeaturesPage Self-Referencing Links
+
+**Problem**: Components used IN FeaturesPage link back to /features
+**Discovered**: 2026-01-08 16:45 UTC (user verification)
+
+**Locations**:
+1. `FeaturesGrid.tsx:101` - "Explore All Features →" links to /features
+2. `ToolsShowcase.tsx:139` - "Learn More →" links to /features  
+3. `ToolsShowcase.tsx:186` - Another self-reference
+
+**Why This Is Bad**:
+- User clicks button expecting new content
+- Page reloads to same location (confusing)
+- Breaks user flow expectation
+- Makes buttons appear broken
+
+**Fix Required**:
+- Change links to `/download` (main CTA action)
+- OR change to `/docs` (learn more context)
+- OR remove buttons when on FeaturesPage (conditional rendering)
+
+**Priority**: MEDIUM - Not blocking but confusing UX  
+**Estimate**: 10 minutes
+
+---
+
+**Status**: Ready to fix immediately

@@ -95,13 +95,13 @@ export default function FeaturesGrid() {
         {/* Bottom CTA */}
         <div className="text-center mt-12">
           <p className="text-gray-600 dark:text-gray-400 mb-4">
-            Want to see all features in action?
+            Ready to boost your productivity?
           </p>
           <a
-            href="/features"
+            href="/download"
             className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
-            Explore All Features →
+            Download Clarify →
           </a>
         </div>
       </div>
