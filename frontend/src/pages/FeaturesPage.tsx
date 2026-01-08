@@ -6,7 +6,7 @@ export default function FeaturesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       {/* Hero Section */}
-      <section className="section-padding pt-32">
+      <section className="section-padding pt-32 pb-16">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             Powerful Features for
@@ -18,13 +18,13 @@ export default function FeaturesPage() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               to="/download"
-              className="btn-primary"
+              className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-cyan-600 transition-all text-lg shadow-lg hover:shadow-2xl transform hover:scale-105"
             >
               Download Now
             </Link>
             <Link
               to="/docs"
-              className="btn-secondary"
+              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-600 transition-all text-lg shadow-lg hover:shadow-2xl transform hover:scale-105"
             >
               View Documentation
             </Link>
@@ -43,9 +43,9 @@ export default function FeaturesPage() {
       </section>
 
       {/* Why Clarify Section */}
-      <section className="section-padding">
+      <section className="section-padding bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <h2 className="section-title text-center mb-16">Why Choose Clarify?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-16">Why Choose Clarify?</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Performance */}
@@ -142,7 +142,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-gradient-to-r from-gray-800 to-gray-900 dark:from-gray-700 dark:to-gray-800">
+      <section className="section-padding bg-gradient-to-r from-gray-800 to-gray-900 dark:from-gray-700 dark:to-gray-800 py-16">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Boost Your Productivity?
@@ -153,13 +153,13 @@ export default function FeaturesPage() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               to="/download"
-              className="bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all text-lg shadow-lg"
+              className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-cyan-600 transition-all text-lg shadow-lg hover:shadow-2xl transform hover:scale-105"
             >
               Download Now
             </Link>
             <Link
               to="/docs"
-              className="bg-gray-700 dark:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-600 dark:hover:bg-gray-500 transition-all text-lg border-2 border-white/20"
+              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-600 transition-all text-lg shadow-lg hover:shadow-2xl transform hover:scale-105"
             >
               View Documentation
             </Link>
