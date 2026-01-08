@@ -79,13 +79,13 @@ export default function NotFoundPage() {
         <div className="flex gap-4 justify-center flex-wrap">
           <Link
             to="/"
-            className="btn-primary"
+            className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-cyan-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-2xl"
           >
             Go to Homepage
           </Link>
           <Link
             to="/contact"
-            className="btn-secondary"
+            className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-600 transition-all transform hover:scale-105 shadow-lg hover:shadow-2xl"
           >
             Contact Support
           </Link>

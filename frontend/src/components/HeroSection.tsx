@@ -1,45 +1,6 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function HeroSection() {
-  const [stats, setStats] = useState({
-    users: 0,
-    downloads: 0,
-    stars: 0,
-  });
-
-  // Animated counter effect
-  useEffect(() => {
-    const targets = {
-      users: 10000,
-      downloads: 50000,
-      stars: 2500,
-    };
-
-    const duration = 2000; // 2 seconds
-    const steps = 60;
-    const interval = duration / steps;
-
-    let currentStep = 0;
-
-    const timer = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / steps;
-
-      setStats({
-        users: Math.floor(targets.users * progress),
-        downloads: Math.floor(targets.downloads * progress),
-        stars: Math.floor(targets.stars * progress),
-      });
-
-      if (currentStep >= steps) {
-        setStats(targets);
-        clearInterval(timer);
-      }
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-700 py-20 md:py-32 overflow-hidden">
@@ -91,25 +52,25 @@ export default function HeroSection() {
               </Link>
             </div>
 
-            {/* Animated Stats */}
+            {/* Key Features */}
             <div className="grid grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-bold mb-1">
-                  {stats.users.toLocaleString()}+
+                  15+
                 </div>
-                <div className="text-sm text-blue-200">Active Users</div>
+                <div className="text-sm text-blue-200">Powerful Tools</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-bold mb-1">
-                  {stats.downloads.toLocaleString()}+
+                  7
                 </div>
-                <div className="text-sm text-blue-200">Downloads</div>
+                <div className="text-sm text-blue-200">Languages</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-bold mb-1">
-                  {stats.stars.toLocaleString()}+
+                  97%
                 </div>
-                <div className="text-sm text-blue-200">GitHub Stars</div>
+                <div className="text-sm text-blue-200">Test Coverage</div>
               </div>
             </div>
           </div>

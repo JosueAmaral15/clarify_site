@@ -102,7 +102,7 @@ export default function DocsPage() {
       {/* Quick Links */}
       <section className="section-padding bg-gray-50 dark:bg-gray-800/50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="section-title text-center mb-12">Popular Resources</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">Popular Resources</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center">
