@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { generateToken, verifyToken } from '../../utils/jwt';
+import { generateAccessToken, verifyAccessToken } from '../../utils/jwt';
 
 describe('Authentication Utils', () => {
   describe('Password Hashing', () => {
@@ -32,8 +32,17 @@ describe('Authentication Utils', () => {
 
   describe('JWT Token Generation', () => {
     it('should generate valid JWT token', () => {
-      const payload = { userId: '123', email: 'test@test.com', role: 'user' };
-      const token = generateToken(payload);
+      const mockUser = {
+        _id: '123' as any,
+        email: 'test@test.com',
+        role: 'user',
+        name: 'Test User',
+        password: 'hashed',
+        refreshTokens: [],
+        save: jest.fn(),
+        comparePassword: jest.fn()
+      };
+      const token = generateAccessToken(mockUser as any);
       
       expect(token).toBeDefined();
       expect(typeof token).toBe('string');
@@ -41,9 +50,18 @@ describe('Authentication Utils', () => {
     });
 
     it('should verify valid token', () => {
-      const payload = { userId: '123', email: 'test@test.com', role: 'user' };
-      const token = generateToken(payload);
-      const decoded = verifyToken(token);
+      const mockUser = {
+        _id: '123' as any,
+        email: 'test@test.com',
+        role: 'user',
+        name: 'Test User',
+        password: 'hashed',
+        refreshTokens: [],
+        save: jest.fn(),
+        comparePassword: jest.fn()
+      };
+      const token = generateAccessToken(mockUser as any);
+      const decoded = verifyAccessToken(token);
       
       expect(decoded).toBeDefined();
       expect(decoded.userId).toBe('123');
@@ -54,7 +72,7 @@ describe('Authentication Utils', () => {
     it('should reject invalid token', () => {
       const invalidToken = 'invalid.token.here';
       
-      expect(() => verifyToken(invalidToken)).toThrow();
+      expect(() => verifyAccessToken(invalidToken)).toThrow();
     });
 
     it('should reject expired token', () => {
@@ -64,7 +82,7 @@ describe('Authentication Utils', () => {
       });
       
       setTimeout(() => {
-        expect(() => verifyToken(expiredToken)).toThrow();
+        expect(() => verifyAccessToken(expiredToken)).toThrow();
       }, 100);
     });
   });

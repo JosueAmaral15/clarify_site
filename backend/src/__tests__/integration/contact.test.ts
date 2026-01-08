@@ -24,7 +24,7 @@ describe('Contact API', () => {
       const contactData = {
         name: 'Test User',
         email: 'test@example.com',
-        company: 'Test Company',
+        subject: 'Test Subject',
         message: 'This is a test message'
       };
 
@@ -36,7 +36,7 @@ describe('Contact API', () => {
       expect(response.body).toHaveProperty('_id');
       expect(response.body.name).toBe(contactData.name);
       expect(response.body.email).toBe(contactData.email);
-      expect(response.body.status).toBe('pending');
+      expect(response.body.status).toBe('new');
     });
 
     it('should reject contact without required fields', async () => {
@@ -55,6 +55,7 @@ describe('Contact API', () => {
       const invalidData = {
         name: 'Test User',
         email: 'invalid-email',
+        subject: 'Test Subject',
         message: 'Test message'
       };
 
@@ -68,6 +69,7 @@ describe('Contact API', () => {
       const contactData = {
         name: 'Test User',
         email: 'test@example.com',
+        subject: 'Test Subject',
         message: 'Test message'
       };
 
@@ -93,8 +95,8 @@ describe('Contact API', () => {
     it('should return all contacts for admin', async () => {
       // Create test contacts
       await Contact.create([
-        { name: 'User 1', email: 'user1@test.com', message: 'Message 1' },
-        { name: 'User 2', email: 'user2@test.com', message: 'Message 2' }
+        { name: 'User 1', email: 'user1@test.com', subject: 'Subject 1', message: 'Message 1' },
+        { name: 'User 2', email: 'user2@test.com', subject: 'Subject 2', message: 'Message 2' }
       ]);
 
       const response = await request(app)
@@ -112,8 +114,9 @@ describe('Contact API', () => {
       const contact = await Contact.create({
         name: 'Test User',
         email: 'test@test.com',
+        subject: 'Test Subject',
         message: 'Test message',
-        status: 'pending'
+        status: 'new'
       });
 
       const response = await request(app)
@@ -131,6 +134,7 @@ describe('Contact API', () => {
       const contact = await Contact.create({
         name: 'Test User',
         email: 'test@test.com',
+        subject: 'Test Subject',
         message: 'Test message'
       });
 
