@@ -3,19 +3,21 @@ import Newsletter from '../models/Newsletter';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import { EmailService } from '../services/email.service';
-import { requireAdmin } from '../middleware/auth';
+import { requireAuth, requireAdmin } from '../middleware/auth';
 
 const router = Router();
 
-// Rate limiting: 3 subscriptions per hour per IP
-const subscribeLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 3,
-  message: {
-    success: false,
-    message: 'Too many subscription requests. Please try again later.',
-  },
-});
+// Rate limiting: 3 subscriptions per hour per IP (disabled in test environment)
+const subscribeLimiter = process.env.NODE_ENV === 'test' 
+  ? (_req: Request, _res: Response, next: any) => next() // No rate limit in tests
+  : rateLimit({
+      windowMs: 60 * 60 * 1000, // 1 hour
+      max: 3,
+      message: {
+        success: false,
+        message: 'Too many subscription requests. Please try again later.',
+      },
+    });
 
 /**
  * @route   POST /api/newsletter/subscribe
@@ -153,6 +155,7 @@ router.post(
  */
 router.post(
   '/send-release',
+  requireAuth,
   requireAdmin,
   [
     body('version').trim().notEmpty().withMessage('Version is required'),
@@ -232,7 +235,7 @@ router.post(
  * @desc    Get all subscribers (Admin only)
  * @access  Private/Admin
  */
-router.get('/subscribers', requireAdmin, async (req: Request, res: Response): Promise<void> => {
+router.get('/subscribers', requireAuth, requireAdmin, async (req: Request, res: Response): Promise<void> => {
   try {
     const { status = 'active', page = 1, limit = 50 } = req.query;
 
