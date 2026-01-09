@@ -66,7 +66,7 @@ export default function DocsPage() {
       </section>
 
       {/* Documentation Grid */}
-      <section className="section-padding">
+      <section className="section-padding py-16 md:py-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid gap-12">
             {docs.map((section, idx) => (
