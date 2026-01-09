@@ -12,6 +12,10 @@ describe('Newsletter API Integration Tests', () => {
       await mongoose.connect(process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/clarify_test');
     }
 
+    // Clean up before creating test data
+    await User.deleteMany({});
+    await Newsletter.deleteMany({});
+
     // Create admin user for admin tests
     const adminUser = await User.create({
       name: 'Admin User',

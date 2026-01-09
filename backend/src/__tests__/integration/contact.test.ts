@@ -13,6 +13,10 @@ describe('Contact API', () => {
       await mongoose.connect(process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/clarify_test');
     }
 
+    // Clean up before creating test data
+    await User.deleteMany({});
+    await Contact.deleteMany({});
+
     // Create admin user for tests
     const adminUser = await User.create({
       name: 'Admin User',

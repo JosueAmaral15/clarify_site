@@ -12,6 +12,9 @@ describe('User API Integration Tests', () => {
       await mongoose.connect(process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/clarify_test');
     }
 
+    // Clean up before creating test data
+    await User.deleteMany({});
+
     // Create test user
     const testUser = await User.create({
       name: 'Test User',
