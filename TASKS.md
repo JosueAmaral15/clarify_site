@@ -73,11 +73,11 @@
 - ✅ Content includes real examples, benchmarks, version numbers, and accurate technical specs
 
 ### Test Coverage: 🟡 IN PROGRESS - Sprint 9 Active
-- **Current**: ~43% (after admin route expansion)
+- **Current**: ~44% (after newsletter route expansion)
 - **Target**: 85%
-- **Gap**: ~42 percentage points
+- **Gap**: ~41 percentage points
 - **Status**: Actively working on Sprint 9 tasks
-- **Current Task**: Task #5 - Newsletter route comprehensive tests
+- **Current Task**: Task #6 - User route comprehensive tests
 
 ---
 
@@ -93,20 +93,17 @@
 - ✅ Task #2.5: Fix test isolation issues (Jan 9) - Added cleanup in beforeAll()
 - ✅ Task #3: Downloads route tests (Jan 8) - Already had 11 comprehensive tests
 - ✅ Task #4: Admin routes comprehensive tests (Jan 9) - 52 tests, 96.77% coverage
+- ✅ Task #5: Newsletter routes comprehensive tests (Jan 9) - 35 tests, 89.36% coverage
 
 **Remaining Tasks**:
-- [ ] **Task #5**: Newsletter route comprehensive tests (1h) - NEXT
-  - Expand beyond current 15 tests
-  - Test subscribe edge cases
-  - Test unsubscribe flow
-  - Test admin newsletter management
-  - Test email validation and normalization
   
-- [ ] **Task #6**: User route comprehensive tests (1h)
+- [ ] **Task #6**: User route comprehensive tests (1h) - NEXT
+  - Expand beyond current 16 tests (9 passing, 7 skipped)
   - Test profile CRUD operations
   - Test password change validation
   - Test account deletion
   - Test authentication requirements
+  - Fix skipped bcrypt tests
   
 - [ ] **Task #7**: Final coverage push and documentation (1-1.5h)
   - Add any missing route tests
