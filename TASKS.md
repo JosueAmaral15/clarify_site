@@ -73,11 +73,11 @@
 - ✅ Content includes real examples, benchmarks, version numbers, and accurate technical specs
 
 ### Test Coverage: 🟡 IN PROGRESS - Sprint 9 Active
-- **Current**: ~40% (after test isolation fixes)
+- **Current**: ~43% (after admin route expansion)
 - **Target**: 85%
-- **Gap**: ~45 percentage points
+- **Gap**: ~42 percentage points
 - **Status**: Actively working on Sprint 9 tasks
-- **Current Task**: Task #3 - Download route comprehensive tests
+- **Current Task**: Task #5 - Newsletter route comprehensive tests
 
 ---
 
@@ -91,23 +91,12 @@
 - ✅ Task #1: Fix failing tests (Jan 8)
 - ✅ Task #2: Expand auth tests (Jan 8)
 - ✅ Task #2.5: Fix test isolation issues (Jan 9) - Added cleanup in beforeAll()
+- ✅ Task #3: Downloads route tests (Jan 8) - Already had 11 comprehensive tests
+- ✅ Task #4: Admin routes comprehensive tests (Jan 9) - 52 tests, 96.77% coverage
 
 **Remaining Tasks**:
-- [ ] **Task #3**: Downloads route comprehensive tests (1-1.5h) - NEXT
-  - Test POST /api/downloads endpoint validation
-  - Test GET /api/downloads/stats aggregation
-  - Test email/platform validation
-  - Test IP address storage
-  - Test admin stats filtering
-  
-- [ ] **Task #4**: Admin routes comprehensive tests (1-1.5h)
-  - Test admin authentication/authorization
-  - Test admin user management endpoints
-  - Test admin contact management
-  - Test admin download statistics
-  - Test role-based access control
-  
-- [ ] **Task #5**: Newsletter route comprehensive tests (1h)
+- [ ] **Task #5**: Newsletter route comprehensive tests (1h) - NEXT
+  - Expand beyond current 15 tests
   - Test subscribe edge cases
   - Test unsubscribe flow
   - Test admin newsletter management
