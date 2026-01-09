@@ -5,33 +5,33 @@ export default function DocsPage() {
     {
       category: 'Getting Started',
       items: [
-        { title: 'Installation', description: 'How to install Clarify on your system', href: '#installation' },
-        { title: 'Quick Start Guide', description: 'Get up and running in 5 minutes', href: '#quick-start' },
-        { title: 'System Requirements', description: 'Check if your system is compatible', href: '#requirements' },
+        { title: 'Installation', description: 'How to install Clarify on your system', href: '/docs/installation' },
+        { title: 'Quick Start Guide', description: 'Get up and running in 5 minutes', href: '/docs/quick-start' },
+        { title: 'System Requirements', description: 'Check if your system is compatible', href: '/docs/requirements' },
       ]
     },
     {
       category: 'Core Features',
       items: [
-        { title: 'Search & Replace', description: 'Advanced regex-based search and replace', href: '#search-replace' },
-        { title: 'JSON Tools', description: 'Rewrite, translate, and manipulate JSON', href: '#json-tools' },
-        { title: 'Text Processing', description: 'Extract, transform, and format text', href: '#text-processing' },
+        { title: 'Search & Replace', description: 'Advanced regex-based search and replace', href: '/docs/search-replace' },
+        { title: 'JSON Tools', description: 'Rewrite, translate, and manipulate JSON', href: '/docs/json-tools' },
+        { title: 'Text Processing', description: 'Extract, transform, and format text', href: '/docs/text-processing' },
       ]
     },
     {
       category: 'Advanced',
       items: [
-        { title: 'Plugin Development', description: 'Create custom plugins', href: '#plugins' },
-        { title: 'API Reference', description: 'Complete API documentation', href: '#api' },
-        { title: 'Configuration', description: 'Customize Clarify to your needs', href: '#config' },
+        { title: 'Plugin Development', description: 'Create custom plugins', href: '/docs/plugins' },
+        { title: 'CLI & Automation', description: 'Command-line interface and automation', href: '/docs/api' },
+        { title: 'Configuration', description: 'Customize Clarify to your needs', href: '/docs/config' },
       ]
     },
     {
       category: 'Support',
       items: [
-        { title: 'FAQ', description: 'Frequently asked questions', href: '#faq' },
-        { title: 'Troubleshooting', description: 'Common issues and solutions', href: '#troubleshooting' },
-        { title: 'Community', description: 'Join our community forums', href: '#community' },
+        { title: 'FAQ', description: 'Frequently asked questions', href: '/docs/faq' },
+        { title: 'Troubleshooting', description: 'Common issues and solutions', href: '/docs/troubleshooting' },
+        { title: 'Community', description: 'Join our community forums', href: '/docs/community' },
       ]
     }
   ];

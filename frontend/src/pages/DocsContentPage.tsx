@@ -1,21 +1,16 @@
 import { useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useParams } from 'react-router-dom';
 
 export default function DocsContentPage() {
   const location = useLocation();
-  const hash = location.hash.replace('#', '') || 'overview';
+  const params = useParams();
+  
+  // Support both URL params (/docs/installation) and hash (#installation)
+  const sectionId = params['*'] || location.hash.replace('#', '') || 'user-guide';
 
   useEffect(() => {
-    // Scroll to section if hash exists
-    if (hash && hash !== 'overview') {
-      const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      window.scrollTo(0, 0);
-    }
-  }, [hash]);
+    window.scrollTo(0, 0);
+  }, [sectionId]);
 
   const sections = {
     'installation': {
@@ -308,7 +303,7 @@ export default function DocsContentPage() {
     }
   };
 
-  const currentSection = sections[hash as keyof typeof sections] || sections['user-guide'];
+  const currentSection = sections[sectionId as keyof typeof sections] || sections['user-guide'];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -335,9 +330,9 @@ export default function DocsContentPage() {
                 {Object.entries(sections).map(([key, section]) => (
                   <Link
                     key={key}
-                    to={`/docs#${key}`}
+                    to={`/docs/${key}`}
                     className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                      hash === key
+                      sectionId === key
                         ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-semibold'
                         : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
                     }`}
