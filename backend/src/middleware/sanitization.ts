@@ -54,7 +54,7 @@ function sanitizeMongoObject(obj: any): any {
   if (obj !== null && typeof obj === 'object') {
     const sanitized: any = {};
     for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
         // Remove keys starting with $ or containing .
         const sanitizedKey = key.replace(/^\$/g, '').replace(/\./g, '_');
         sanitized[sanitizedKey] = sanitizeMongoObject(obj[key]);
