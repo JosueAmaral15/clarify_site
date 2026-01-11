@@ -421,4 +421,87 @@ describe('Auth API Integration Tests', () => {
       expect(response.body.success).toBe(false);
     });
   });
+
+  describe('Authentication Middleware Error Scenarios', () => {
+    it('should reject inactive user', async () => {
+      // Create a user
+      const userData = {
+        name: 'Inactive User',
+        email: 'inactive@example.com',
+        password: 'Password123!',
+      };
+
+      const registerResponse = await request(app)
+        .post('/api/auth/register')
+        .send(userData);
+
+      const token = registerResponse.body.data.accessToken;
+
+      // Deactivate the user
+      await User.findOneAndUpdate(
+        { email: userData.email },
+        { isActive: false }
+      );
+
+      // Try to access protected route
+      const response = await request(app)
+        .get('/api/auth/me')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(401);
+
+      expect(response.body.success).toBe(false);
+      expect(response.body.message).toBe('User not found or inactive');
+    });
+
+    it('should reject deleted user', async () => {
+      // Create and register user
+      const userData = {
+        name: 'To Be Deleted',
+        email: 'deleted@example.com',
+        password: 'Password123!',
+      };
+
+      const registerResponse = await request(app)
+        .post('/api/auth/register')
+        .send(userData);
+
+      const token = registerResponse.body.data.accessToken;
+
+      // Delete the user from database
+      await User.findOneAndDelete({ email: userData.email });
+
+      // Try to access protected route
+      const response = await request(app)
+        .get('/api/auth/me')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(401);
+
+      expect(response.body.success).toBe(false);
+      expect(response.body.message).toBe('User not found or inactive');
+    });
+
+    it('should reject non-admin user from admin route', async () => {
+      // Create regular user
+      const userData = {
+        name: 'Regular User',
+        email: 'regular@example.com',
+        password: 'Password123!',
+      };
+
+      const registerResponse = await request(app)
+        .post('/api/auth/register')
+        .send(userData);
+
+      const token = registerResponse.body.data.accessToken;
+
+      // Try to access admin route
+      const response = await request(app)
+        .get('/api/analytics/stats')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(403);
+
+      expect(response.body.success).toBe(false);
+      expect(response.body.message).toBe('Admin access required');
+    });
+  });
 });
