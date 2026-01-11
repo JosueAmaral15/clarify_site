@@ -30,7 +30,7 @@ router.get('/stats', async (_req: AuthRequest, res: Response): Promise<void> => 
         }
       }),
       Contact.countDocuments({
-        submittedAt: {
+        createdAt: {
           $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
         }
       }),
@@ -120,9 +120,9 @@ router.get('/downloads/by-platform', async (_req: AuthRequest, res: Response): P
 router.get('/contacts', async (_req: AuthRequest, res: Response): Promise<void> => {
   try {
     const contacts = await Contact.find()
-      .sort({ submittedAt: -1 })
+      .sort({ createdAt: -1 })
       .limit(50)
-      .select('name email subject message submittedAt status');
+      .select('name email subject message createdAt status');
 
     res.json({
       success: true,
