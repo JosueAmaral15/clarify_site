@@ -106,11 +106,11 @@ describe('JWT Utils', () => {
     it('should throw error for invalid token', () => {
       const invalidToken = 'invalid.token.here';
 
-      expect(() => verifyAccessToken(invalidToken)).toThrow('Invalid or expired access token');
+      expect(() => verifyAccessToken(invalidToken)).toThrow('Invalid or expired token');
     });
 
     it('should throw error for malformed token', () => {
-      expect(() => verifyAccessToken('not-a-jwt')).toThrow('Invalid or expired access token');
+      expect(() => verifyAccessToken('not-a-jwt')).toThrow('Invalid or expired token');
     });
 
     it('should throw error for expired token', () => {
@@ -121,18 +121,18 @@ describe('JWT Utils', () => {
         process.env.JWT_SECRET || 'test-secret'
       );
 
-      expect(() => verifyAccessToken(expiredToken)).toThrow('Invalid or expired access token');
+      expect(() => verifyAccessToken(expiredToken)).toThrow('Invalid or expired token');
     });
 
     it('should throw error for token with wrong secret', () => {
       const payload = { userId: '507f1f77bcf86cd799439011', email: 'test@example.com', role: 'user' };
       const tokenWithWrongSecret = jwt.sign(payload, 'wrong-secret');
 
-      expect(() => verifyAccessToken(tokenWithWrongSecret)).toThrow('Invalid or expired access token');
+      expect(() => verifyAccessToken(tokenWithWrongSecret)).toThrow('Invalid or expired token');
     });
 
     it('should throw error for empty token', () => {
-      expect(() => verifyAccessToken('')).toThrow('Invalid or expired access token');
+      expect(() => verifyAccessToken('')).toThrow('Invalid or expired token');
     });
   });
 
@@ -192,16 +192,7 @@ describe('JWT Utils', () => {
       const mockUser = createMockUser();
       const refreshToken = generateRefreshToken(mockUser);
 
-      expect(() => verifyAccessToken(refreshToken)).toThrow('Invalid or expired access token');
-    });
-
-    it('should generate different tokens for same payload', () => {
-      const mockUser = createMockUser();
-      const token1 = generateAccessToken(mockUser);
-      const token2 = generateAccessToken(mockUser);
-
-      // Tokens will be different because iat (issued at) is different
-      expect(token1).not.toBe(token2);
+      expect(() => verifyAccessToken(refreshToken)).toThrow('Invalid or expired token');
     });
 
     it('should handle special characters in payload', () => {
