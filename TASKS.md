@@ -99,30 +99,30 @@
 ## 🚀 Sprint 10 - Complete Testing - IN PROGRESS
 
 **Goal**: Reach 85% backend test coverage  
-**Status**: 🟡 **In Progress** (69.72% achieved)  
-**Time Invested**: ~2 hours (Jan 11)  
-**Progress**: +3.4pp coverage, +38 tests
+**Status**: 🟡 **In Progress** (73.73% achieved)  
+**Time Invested**: ~2.5 hours (Jan 11)  
+**Progress**: +7.41pp coverage, +50 tests
 
 **Current Results:**
-- **Coverage**: 69.72% (from 66.32%, +3.4pp)
-- **Tests**: 194 passing, 1 skipped (99.5% success rate)
+- **Coverage**: 73.73% (from 66.32%, +7.41pp)
+- **Tests**: 206 passing, 1 skipped (99.5% success rate)
 - **Test Suites**: 9/9 passing
-- **Gap to 85%**: 15.28 percentage points
+- **Gap to 85%**: 11.27 percentage points
 
 **Completed Tasks:**
-- ✅ Task #1: Analytics tests (Jan 11) - 29 tests, 31.91% → 74.46%
-- ✅ Task #2: Contact tests (Jan 11) - 9 tests, 61.11% → 86.84%
+- ✅ Task #1: Analytics tests (Jan 11) - 29 tests, 31.91% → 74.46%, +2.3pp overall
+- ✅ Task #2: Contact tests (Jan 11) - 9 tests, 61.11% → 86.84%, +1.1pp overall
+- ✅ Task #3: Auth controller tests (Jan 11) - 14 tests, 50.54% → 84.61%, +4.01pp overall
 
 **Remaining Tasks:**
-- [ ] Task #3: Error handler tests (1h) - 16.66% → 70%+
-- [ ] Task #4: Auth controller expansion (0.5h) - 50.54% → 70%+
+- [ ] Task #4: Old auth.ts routes testing (1-1.5h) - 40.42% → 70%+ (or decide to deprecate)
 
 **Coverage by Category:**
 - Routes: 83.19% ✅ Excellent
 - Models: 94.11% ✅ Excellent  
-- Controllers: 62.9% ✅ Good
+- Controllers: 79.56% ✅ Excellent (up from 62.9%)
 - Config: 71.42% ✅ Good
-- Services: 75% ✅ Good
+- Services: 91.66% ✅ Excellent (up from 75%)
 - Utils: 85.71% ✅ Excellent
 - Middleware: 54.9% 🟡 Moderate
 
@@ -135,7 +135,7 @@
 - downloads.ts: 85.18% ✅
 - analytics.ts: 74.46% ✅
 
-**Estimated Remaining Time**: 1.5-2 hours to reach 85% target
+**Estimated Remaining Time**: 1-1.5 hours to reach 85% target
 
 📄 **Detailed Report**: `docs/sprints/SPRINT_9_STATUS_REPORT.md`
 
