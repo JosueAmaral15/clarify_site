@@ -80,8 +80,9 @@ UserSchema.pre('save', async function (this: IUser) {
   }
 
   try {
-    // Generate salt with 12 rounds (secure for production)
-    const salt = await bcrypt.genSalt(12);
+    // Use fewer rounds in test environment for speed
+    const saltRounds = process.env.NODE_ENV === 'test' ? 4 : 12;
+    const salt = await bcrypt.genSalt(saltRounds);
     // Hash password
     const hashedPassword = await bcrypt.hash(this.password as string, salt);
     this.password = hashedPassword;

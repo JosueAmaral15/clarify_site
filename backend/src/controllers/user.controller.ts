@@ -108,7 +108,7 @@ export const changePassword = async (req: Request, res: Response): Promise<void>
     }
 
     // Get user with password
-    const user = await User.findById(authReq.user.userId);
+    const user = await User.findById(authReq.user.userId).select('+password');
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
@@ -122,7 +122,8 @@ export const changePassword = async (req: Request, res: Response): Promise<void>
     }
 
     // Hash new password
-    const hashedPassword = await bcrypt.hash(newPassword, 12);
+    const saltRounds = process.env.NODE_ENV === 'test' ? 4 : 12;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
     user.password = hashedPassword;
     await user.save();
 
@@ -151,7 +152,7 @@ export const deleteAccount = async (req: Request, res: Response): Promise<void> 
     }
 
     // Get user with password
-    const user = await User.findById(authReq.user.userId);
+    const user = await User.findById(authReq.user.userId).select('+password');
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
