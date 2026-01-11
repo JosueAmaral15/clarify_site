@@ -194,9 +194,9 @@ describe('Contact API', () => {
     beforeEach(async () => {
       // Create test contacts with different statuses
       await Contact.create([
-        { name: 'User 1', email: 'user1@test.com', subject: 'Subject 1', message: 'Message 1', status: 'new' },
-        { name: 'User 2', email: 'user2@test.com', subject: 'Subject 2', message: 'Message 2', status: 'read' },
-        { name: 'User 3', email: 'user3@test.com', subject: 'Subject 3', message: 'Message 3', status: 'replied' },
+        { name: 'User 1', email: 'user1@test.com', subject: 'Subject 1', message: 'Test message for user 1', status: 'new' },
+        { name: 'User 2', email: 'user2@test.com', subject: 'Subject 2', message: 'Test message for user 2', status: 'read' },
+        { name: 'User 3', email: 'user3@test.com', subject: 'Subject 3', message: 'Test message for user 3', status: 'replied' },
       ]);
     });
 
