@@ -12,7 +12,6 @@ describe('Download API Integration Tests', () => {
 
   afterAll(async () => {
     await Download.deleteMany({});
-    await mongoose.connection.close();
   });
 
   afterEach(async () => {

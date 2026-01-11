@@ -25,7 +25,7 @@ router.get('/stats', async (_req: AuthRequest, res: Response): Promise<void> => 
       Contact.countDocuments(),
       Newsletter.countDocuments(),
       Download.countDocuments({
-        downloadedAt: {
+        timestamp: {
           $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
         }
       }),
@@ -71,9 +71,9 @@ router.get('/stats', async (_req: AuthRequest, res: Response): Promise<void> => 
 router.get('/downloads', async (_req: AuthRequest, res: Response): Promise<void> => {
   try {
     const downloads = await Download.find()
-      .sort({ downloadedAt: -1 })
+      .sort({ timestamp: -1 })
       .limit(100)
-      .select('email platform version downloadedAt ipAddress userAgent');
+      .select('email platform timestamp ipAddress userAgent');
 
     res.json({
       success: true,
@@ -167,13 +167,13 @@ router.get('/downloads/timeline', async (_req: AuthRequest, res: Response): Prom
     const timeline = await Download.aggregate([
       {
         $match: {
-          downloadedAt: { $gte: thirtyDaysAgo }
+          timestamp: { $gte: thirtyDaysAgo }
         }
       },
       {
         $group: {
           _id: {
-            $dateToString: { format: '%Y-%m-%d', date: '$downloadedAt' }
+            $dateToString: { format: '%Y-%m-%d', date: '$timestamp' }
           },
           count: { $sum: 1 }
         }

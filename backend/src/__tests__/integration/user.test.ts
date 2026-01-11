@@ -37,7 +37,6 @@ describe('User API Integration Tests', () => {
 
   afterAll(async () => {
     await User.deleteMany({});
-    await mongoose.connection.close();
   });
 
   describe('GET /api/users/me', () => {

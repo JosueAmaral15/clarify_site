@@ -63,7 +63,6 @@ describe('Admin API Integration Tests', () => {
   afterAll(async () => {
     await User.deleteMany({});
     await Contact.deleteMany({});
-    await mongoose.connection.close();
   });
 
   describe('GET /api/admin/users', () => {

@@ -36,7 +36,6 @@ describe('Newsletter API Integration Tests', () => {
   afterAll(async () => {
     await Newsletter.deleteMany({});
     await User.deleteMany({});
-    await mongoose.connection.close();
   });
 
   afterEach(async () => {

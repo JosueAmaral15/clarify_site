@@ -41,7 +41,6 @@ describe('Contact API', () => {
   afterAll(async () => {
     await Contact.deleteMany({});
     await User.deleteMany({});
-    await mongoose.connection.close();
   });
 
   afterEach(async () => {
