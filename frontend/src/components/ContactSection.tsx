@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import contactService from '../services/contactService';
+import Spinner from './Spinner';
 
 export default function ContactSection() {
   const { ref: sectionRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
@@ -31,12 +33,25 @@ export default function ContactSection() {
         message: 'Message sent successfully! We will respond shortly.',
       });
       
+      // Show success toast
+      toast.success('Message sent successfully! We will respond shortly.', {
+        duration: 5000,
+        position: 'top-right',
+      });
+      
       // Clear form
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error: any) {
+      const errorMessage = error.message || 'Failed to send message. Please try again.';
       setSubmitStatus({
         type: 'error',
-        message: error.message || 'Failed to send message. Please try again.',
+        message: errorMessage,
+      });
+      
+      // Show error toast
+      toast.error(errorMessage, {
+        duration: 5000,
+        position: 'top-right',
       });
     } finally {
       setIsSubmitting(false);
@@ -51,7 +66,11 @@ export default function ContactSection() {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
+    <>
+      {/* Toast Container */}
+      <Toaster />
+      
+      <section ref={sectionRef} id="contact" className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
       <div className={`container mx-auto px-4 animate-on-scroll ${isVisible ? 'visible' : ''}`}>
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
@@ -152,9 +171,19 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-blue-600 text-white px-6 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="w-full bg-blue-600 text-white px-6 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3"
                 >
-                  {isSubmitting ? '⏳ Sending...' : '📨 Send Message'}
+                  {isSubmitting ? (
+                    <>
+                      <Spinner size="sm" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>📨</span>
+                      <span>Send Message</span>
+                    </>
+                  )}
                 </button>
 
                 {/* Status Messages */}
@@ -253,6 +282,7 @@ export default function ContactSection() {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

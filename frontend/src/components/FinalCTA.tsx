@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import newsletterService from '../services/newsletterService';
+import Spinner from './Spinner';
 
 export default function FinalCTA() {
   const [email, setEmail] = useState('');
@@ -16,18 +18,35 @@ export default function FinalCTA() {
       const result = await newsletterService.subscribe(email);
       if (result.success) {
         setMessage({ type: 'success', text: result.message });
+        toast.success(result.message, {
+          duration: 5000,
+          position: 'top-right',
+        });
         setEmail(''); // Clear form on success
       } else {
         setMessage({ type: 'error', text: result.message });
+        toast.error(result.message, {
+          duration: 5000,
+          position: 'top-right',
+        });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to subscribe. Please try again.' });
+      const errorMsg = 'Failed to subscribe. Please try again.';
+      setMessage({ type: 'error', text: errorMsg });
+      toast.error(errorMsg, {
+        duration: 5000,
+        position: 'top-right',
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
   return (
-    <section className="bg-gradient-to-br from-blue-600 to-purple-700 py-16 md:py-24">
+    <>
+      {/* Toast Container */}
+      <Toaster />
+      
+      <section className="bg-gradient-to-br from-blue-600 to-purple-700 py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center text-white">
           {/* Heading */}
@@ -81,9 +100,16 @@ export default function FinalCTA() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-all transform hover:scale-105 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-all transform hover:scale-105 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
               >
-                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                {isSubmitting ? (
+                  <>
+                    <Spinner size="sm" />
+                    <span>Subscribing...</span>
+                  </>
+                ) : (
+                  'Subscribe'
+                )}
               </button>
             </form>
             
@@ -104,6 +130,7 @@ export default function FinalCTA() {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }
