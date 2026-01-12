@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link, useParams } from 'react-router-dom';
+import CodeBlock from '../components/CodeBlock';
 
 export default function DocsContentPage() {
   const location = useLocation();
@@ -24,11 +25,30 @@ export default function DocsContentPage() {
         },
         {
           heading: 'Install via pip',
-          text: 'Clone the repository: git clone https://github.com/JosueAmaral15/clarify.git && cd clarify. Then install dependencies: pip install -r requirements.txt (or use poetry install if you have Poetry).'
+          text: 'Clone the repository and install dependencies:',
+          code: `# Clone the repository
+git clone https://github.com/JosueAmaral15/clarify.git
+cd clarify
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Or use Poetry if you have it
+poetry install`,
+          language: 'bash' as const
         },
         {
           heading: 'Launch Application',
-          text: 'Run python main.py to start the GUI. Alternatively, use the launchers: ./launchers/clarify_gui.sh (Linux/macOS) or launchers/clarify_gui.bat (Windows).'
+          text: 'Run the application using one of these methods:',
+          code: `# Method 1: Direct Python execution
+python main.py
+
+# Method 2: Linux/macOS launcher
+./launchers/clarify_gui.sh
+
+# Method 3: Windows launcher
+launchers\\clarify_gui.bat`,
+          language: 'bash' as const
         },
         {
           heading: 'Verify Installation',
@@ -156,7 +176,37 @@ export default function DocsContentPage() {
         },
         {
           heading: 'Creating Custom Plugins',
-          text: 'Plugins are Python modules (.py files) placed in the plugins/ directory. Inherit from BasePlugin, implement required hooks (process, get_name, get_description), and register with plugin manager. Access Clarify core APIs: FileWalker for file operations, text processors for transformations, GUI components for custom docks. Full TypeScript-style type hints included for IDE autocomplete.'
+          text: 'Plugins are Python modules (.py files) placed in the plugins/ directory. Inherit from BasePlugin and implement required hooks. Example plugin structure:',
+          code: `from src.plugin_system import BasePlugin
+from typing import Dict, Any
+
+class MyCustomPlugin(BasePlugin):
+    """Example custom plugin for Clarify."""
+    
+    def get_name(self) -> str:
+        return "My Custom Tool"
+    
+    def get_description(self) -> str:
+        return "Performs custom text processing"
+    
+    def on_load(self):
+        """Called when plugin is loaded."""
+        print(f"{self.get_name()} loaded successfully")
+    
+    def process(self, input_data: str, options: Dict[str, Any]) -> str:
+        """Main processing function."""
+        # Your custom logic here
+        result = input_data.upper()
+        return result
+    
+    def on_enable(self):
+        """Called when plugin is enabled."""
+        self.register_menu_action("Tools/My Custom Tool")
+    
+    def on_disable(self):
+        """Called when plugin is disabled."""
+        pass`,
+          language: 'python' as const
         },
         {
           heading: 'Testing & Distribution',
@@ -178,7 +228,26 @@ export default function DocsContentPage() {
         },
         {
           heading: 'AI API Configuration',
-          text: 'Configure AI providers: OpenAI (ChatGPT) requires API key from platform.openai.com, supports GPT-4 Turbo, GPT-3.5 Turbo. Google Gemini requires API key from ai.google.dev, supports Flash 1.5 (cheaper), Pro (higher quality). Token tracking displays session and lifetime usage. Code fence removal automatically strips ```json from AI responses.'
+          text: 'Configure AI providers in your configuration file:',
+          code: `{
+  "ai_providers": {
+    "openai": {
+      "api_key": "sk-your-key-here",
+      "model": "gpt-4-turbo-preview",
+      "max_tokens": 4096
+    },
+    "gemini": {
+      "api_key": "your-gemini-key",
+      "model": "gemini-1.5-flash",
+      "temperature": 0.7
+    }
+  },
+  "token_tracking": {
+    "enabled": true,
+    "show_lifetime_usage": true
+  }
+}`,
+          language: 'json' as const
         },
         {
           heading: 'i18n Language Settings',
@@ -246,15 +315,39 @@ export default function DocsContentPage() {
       content: [
         {
           heading: 'Command-Line Interface',
-          text: 'Full CLI interface for automation and scripting. Use python -m src.app [command] [options]. Available commands: search (find patterns), replace (batch replacements), insert (add text at positions), translate (JSON translation), dedupe (JSON rewriting), and more. All GUI features accessible via CLI for CI/CD pipelines.'
-        },
-        {
-          heading: 'CLI Examples',
-          text: 'Search: python -m src.app search ./src --query "function" --include "*.py". Replace: python -m src.app replace ./src --query "oldName" --replacement "newName" --all. Translate: python -m src.app translate ./locales --dictionary dict.json. Dedupe: python -m src.app dedupe en.json --join-keys --eliminate-duplicates.'
+          text: 'Full CLI interface for automation and scripting. All GUI features accessible via CLI for CI/CD pipelines. Examples of common commands:',
+          code: `# Search for patterns in files
+python -m src.app search ./src --query "function" --include "*.py"
+
+# Batch replace across files
+python -m src.app replace ./src --query "oldName" --replacement "newName" --all
+
+# Translate JSON files
+python -m src.app translate ./locales --dictionary dict.json
+
+# Dedupe and clean JSON
+python -m src.app dedupe en.json --join-keys --eliminate-duplicates`,
+          language: 'bash' as const
         },
         {
           heading: 'Batch Automation Scripts',
-          text: 'Create shell scripts for complex workflows: for file in locales/*.json; do python -m src.app dedupe "$file"; done. Chain operations with && for sequential processing. Integrate with Git hooks for pre-commit validation of JSON files or automatic i18n key cleanup.'
+          text: 'Create shell scripts for complex workflows. Example batch processing script:',
+          code: `#!/bin/bash
+# Batch dedupe all JSON files
+for file in locales/*.json; do
+  echo "Processing $file..."
+  python -m src.app dedupe "$file" --eliminate-duplicates
+done
+
+# Chain operations
+python -m src.app extract ./src --output strings.json && \\
+  python -m src.app translate strings.json --target pt && \\
+  python -m src.app dedupe ./locales/pt.json`,
+          language: 'bash' as const
+        },
+        {
+          heading: 'CI/CD Integration',
+          text: 'Integrate with Git hooks for pre-commit validation of JSON files or automatic i18n key cleanup.'
         }
       ]
     },
@@ -377,6 +470,12 @@ export default function DocsContentPage() {
                     <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                       {item.text}
                     </p>
+                    {'code' in item && 'language' in item && (
+                      <CodeBlock 
+                        code={item.code as string} 
+                        language={item.language as 'bash' | 'python' | 'json' | 'yaml'} 
+                      />
+                    )}
                   </div>
                 ))}
               </div>
