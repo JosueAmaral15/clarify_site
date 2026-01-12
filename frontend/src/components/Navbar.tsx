@@ -23,7 +23,7 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2" aria-label="Go to homepage">
               <span className="text-2xl font-bold text-tech-blue font-heading">
                 Clarify
               </span>
