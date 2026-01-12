@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, Link, useParams } from 'react-router-dom';
 
 export default function DocsContentPage() {
   const location = useLocation();
   const params = useParams();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // Support both URL params (/docs/installation) and hash (#installation)
   const sectionId = params['*'] || location.hash.replace('#', '') || 'user-guide';
@@ -321,9 +322,22 @@ export default function DocsContentPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
+        {/* Mobile Sidebar Toggle Button */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="lg:hidden mb-4 flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          aria-label="Toggle documentation sidebar"
+          aria-expanded={sidebarOpen}
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <span>{sidebarOpen ? 'Hide' : 'Show'} Navigation</span>
+        </button>
+
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar Navigation */}
-          <aside className="lg:col-span-1">
+          <aside className={`lg:col-span-1 ${sidebarOpen ? 'block' : 'hidden lg:block'}`}>
             <div className="sticky top-24 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
               <h3 className="font-bold text-gray-900 dark:text-white mb-4">Documentation</h3>
               <nav className="space-y-2">
@@ -331,6 +345,7 @@ export default function DocsContentPage() {
                   <Link
                     key={key}
                     to={`/docs/${key}`}
+                    onClick={() => setSidebarOpen(false)}
                     className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
                       sectionId === key
                         ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-semibold'
