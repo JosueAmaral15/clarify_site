@@ -1,11 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDocSearch } from '../hooks/useDocSearch';
 import { useRef, useEffect } from 'react';
 
 export default function DocsPage() {
   const { searchQuery, setSearchQuery, results, hasResults } = useDocSearch();
   const searchInputRef = useRef<HTMLInputElement>(null);
-  //const navigate = useNavigate();
 
   // Keyboard shortcut: / to focus search
   useEffect(() => {
