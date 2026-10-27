@@ -41,7 +41,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.1",
     "nodemailer": "^10.1.4",
-    "zod": "^4.3.4"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
