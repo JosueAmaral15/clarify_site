@@ -8,6 +8,30 @@
 
 ---
 
+## Open-Source Release Preparation (2026-10-27)
+
+Current release status: NOT READY FOR PUBLICATION. Historical MVP completion
+below does not certify the new open-source release or current deployment.
+
+Plan: [Open-source release plan](plans/OPEN_SOURCE_RELEASE_PLAN.md).
+Evidence: [Initial assessment](reports/OPEN_SOURCE_READINESS_2026_10_27.md).
+
+- [x] OSS.1 (Must, Simple): Read the supplied protocol and document initial
+  release findings and the execution plan. No toolkit or remote changes.
+- [ ] OSS.2 (Must, Medium): Prepare MIT license/metadata and community security
+  reporting on an isolated toolkit branch; preserve active editor work.
+- [ ] OSS.3 (Must, Complex; after OSS.2): Complete source/history publication
+  hygiene and third-party license/notice review.
+- [ ] OSS.4 (Must, Complex; after OSS.3): Reconcile versions, verify clean source
+  installation, and record current CI/security/coverage evidence.
+- [ ] OSS.5 (Must, Medium; depends on candidate metadata): Update website source
+  and release links, correct download claims, and test a Vercel preview.
+- [ ] OSS.6 (Must, Medium; after OSS.4 and OSS.5): Obtain publication approval,
+  publish the toolkit/release, deploy production, and verify public access.
+
+Progress: 1/6 phases complete. Approval checkpoint: Phase 2.
+Rollback: Revert only the dedicated assessment documentation commit.
+
 ## 🎉 MVP STATUS: 100% COMPLETE
 
 **Version**: 1.0.0  
