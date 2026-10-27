@@ -5,26 +5,32 @@ import { useState } from 'react';
 export function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
     setShowDropdown(false);
+    setMobileMenuOpen(false);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-lg">
+    <nav className="bg-white dark:bg-gray-800 shadow-lg relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2" aria-label="Go to homepage">
               <span className="text-2xl font-bold text-tech-blue font-heading">
                 Clarify
               </span>
             </Link>
           </div>
 
-          {/* Navigation Links */}
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             <Link
               to="/features"
@@ -54,8 +60,10 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Auth Buttons */}
-          <div className="flex items-center space-x-4">
+          {/* Desktop Auth Buttons & Mobile Menu Button */}
+          <div className="flex items-center space-x-2">
+            {/* Desktop Auth Buttons */}
+            <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <div className="relative">
                 <button
@@ -99,9 +107,107 @@ export function Navbar() {
                 </Link>
               </>
             )}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              aria-label="Toggle mobile menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                /* Close Icon */
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                /* Hamburger Icon */
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg border-t border-gray-200 dark:border-gray-700 z-50">
+          <div className="px-4 py-6 space-y-4">
+            {/* Mobile Navigation Links */}
+            <Link
+              to="/features"
+              className="block py-3 text-gray-700 dark:text-gray-300 hover:text-tech-blue dark:hover:text-tech-blue hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg px-4 text-lg font-medium"
+              onClick={closeMobileMenu}
+            >
+              Features
+            </Link>
+            <Link
+              to="/download"
+              className="block py-3 text-gray-700 dark:text-gray-300 hover:text-tech-blue dark:hover:text-tech-blue hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg px-4 text-lg font-medium"
+              onClick={closeMobileMenu}
+            >
+              Download
+            </Link>
+            <Link
+              to="/docs"
+              className="block py-3 text-gray-700 dark:text-gray-300 hover:text-tech-blue dark:hover:text-tech-blue hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg px-4 text-lg font-medium"
+              onClick={closeMobileMenu}
+            >
+              Documentation
+            </Link>
+            <a
+              href="https://github.com/JosueAmaral15/clarify"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block py-3 text-gray-700 dark:text-gray-300 hover:text-tech-blue dark:hover:text-tech-blue hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg px-4 text-lg font-medium"
+              onClick={closeMobileMenu}
+            >
+              GitHub
+            </a>
+
+            {/* Mobile Auth Section */}
+            <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    to="/dashboard"
+                    className="block py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg px-4 text-lg font-medium"
+                    onClick={closeMobileMenu}
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg px-4 text-lg font-medium"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="block w-full text-center py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg"
+                    onClick={closeMobileMenu}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/download"
+                    className="block w-full text-center py-3 text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors font-semibold text-lg"
+                    onClick={closeMobileMenu}
+                  >
+                    Download
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

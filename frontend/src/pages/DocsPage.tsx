@@ -1,37 +1,59 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDocSearch } from '../hooks/useDocSearch';
+import { useRef, useEffect } from 'react';
 
 export default function DocsPage() {
+  const { searchQuery, setSearchQuery, results, hasResults } = useDocSearch();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  // Keyboard shortcut: / to focus search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+      if (e.key === 'Escape') {
+        setSearchQuery('');
+        searchInputRef.current?.blur();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [setSearchQuery]);
   const docs = [
     {
       category: 'Getting Started',
       items: [
-        { title: 'Installation', description: 'How to install Clarify on your system', href: '#installation' },
-        { title: 'Quick Start Guide', description: 'Get up and running in 5 minutes', href: '#quick-start' },
-        { title: 'System Requirements', description: 'Check if your system is compatible', href: '#requirements' },
+        { title: 'Installation', description: 'How to install Clarify on your system', href: '/docs/installation' },
+        { title: 'Quick Start Guide', description: 'Get up and running in 5 minutes', href: '/docs/quick-start' },
+        { title: 'System Requirements', description: 'Check if your system is compatible', href: '/docs/requirements' },
       ]
     },
     {
       category: 'Core Features',
       items: [
-        { title: 'Search & Replace', description: 'Advanced regex-based search and replace', href: '#search-replace' },
-        { title: 'JSON Tools', description: 'Rewrite, translate, and manipulate JSON', href: '#json-tools' },
-        { title: 'Text Processing', description: 'Extract, transform, and format text', href: '#text-processing' },
+        { title: 'Search & Replace', description: 'Advanced regex-based search and replace', href: '/docs/search-replace' },
+        { title: 'JSON Tools', description: 'Rewrite, translate, and manipulate JSON', href: '/docs/json-tools' },
+        { title: 'Text Processing', description: 'Extract, transform, and format text', href: '/docs/text-processing' },
       ]
     },
     {
       category: 'Advanced',
       items: [
-        { title: 'Plugin Development', description: 'Create custom plugins', href: '#plugins' },
-        { title: 'API Reference', description: 'Complete API documentation', href: '#api' },
-        { title: 'Configuration', description: 'Customize Clarify to your needs', href: '#config' },
+        { title: 'Plugin Development', description: 'Create custom plugins', href: '/docs/plugins' },
+        { title: 'CLI & Automation', description: 'Command-line interface and automation', href: '/docs/api' },
+        { title: 'Configuration', description: 'Customize Clarify to your needs', href: '/docs/config' },
       ]
     },
     {
       category: 'Support',
       items: [
-        { title: 'FAQ', description: 'Frequently asked questions', href: '#faq' },
-        { title: 'Troubleshooting', description: 'Common issues and solutions', href: '#troubleshooting' },
-        { title: 'Community', description: 'Join our community forums', href: '#community' },
+        { title: 'FAQ', description: 'Frequently asked questions', href: '/docs/faq' },
+        { title: 'Troubleshooting', description: 'Common issues and solutions', href: '/docs/troubleshooting' },
+        { title: 'Community', description: 'Join our community forums', href: '/docs/community' },
       ]
     }
   ];
@@ -50,23 +72,81 @@ export default function DocsPage() {
           </p>
           
           {/* Search Bar */}
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto relative">
             <div className="relative">
               <input
+                ref={searchInputRef}
                 type="text"
-                placeholder="Search documentation..."
+                placeholder="Search documentation... (press / to focus)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-6 py-4 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 dark:focus:border-cyan-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-lg"
               />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-12 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  aria-label="Clear search"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
               <svg className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
+
+            {/* Search Results Dropdown */}
+            {hasResults && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border-2 border-gray-200 dark:border-gray-700 z-50 max-h-96 overflow-y-auto">
+                <div className="p-2">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 px-3 py-2">
+                    Found {results.length} result{results.length !== 1 ? 's' : ''}
+                  </div>
+                  {results.map((result) => (
+                    <Link
+                      key={result.id}
+                      to={result.url}
+                      onClick={() => setSearchQuery('')}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
+                    >
+                      <span className="text-2xl">{result.icon}</span>
+                      <div className="flex-1">
+                        <div className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-cyan-400">
+                          {result.title}
+                        </div>
+                      </div>
+                      <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* No Results Message */}
+            {searchQuery.length >= 2 && !hasResults && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border-2 border-gray-200 dark:border-gray-700 z-50 p-6 text-center">
+                <svg className="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-gray-600 dark:text-gray-400 mb-2">
+                  No results found for "<span className="font-semibold">{searchQuery}</span>"
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-500">
+                  Try different keywords or browse the sections below
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* Documentation Grid */}
-      <section className="section-padding">
+      <section className="section-padding py-16 md:py-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid gap-12">
             {docs.map((section, idx) => (

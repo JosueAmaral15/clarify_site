@@ -120,19 +120,19 @@ export default function AdminDashboard() {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-gray-500 text-sm font-medium">Downloads</h3>
+            <h2 className="text-gray-500 text-sm font-medium">Downloads</h2>
             <p className="text-3xl font-bold text-gray-900 mt-2">{stats?.downloads.total}</p>
             <p className="text-sm text-green-600 mt-1">+{stats?.downloads.thisMonth} este mês</p>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-gray-500 text-sm font-medium">Contatos</h3>
+            <h2 className="text-gray-500 text-sm font-medium">Contatos</h2>
             <p className="text-3xl font-bold text-gray-900 mt-2">{stats?.contacts.total}</p>
             <p className="text-sm text-green-600 mt-1">+{stats?.contacts.thisMonth} este mês</p>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-gray-500 text-sm font-medium">Newsletter</h3>
+            <h2 className="text-gray-500 text-sm font-medium">Newsletter</h2>
             <p className="text-3xl font-bold text-gray-900 mt-2">{stats?.newsletter.total}</p>
             <p className="text-sm text-green-600 mt-1">+{stats?.newsletter.thisMonth} este mês</p>
           </div>

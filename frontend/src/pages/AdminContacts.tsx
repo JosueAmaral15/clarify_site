@@ -117,9 +117,9 @@ export default function AdminContacts() {
             >
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 dark:text-white">
+                  <h2 className="font-semibold text-gray-900 dark:text-white">
                     {contact.name}
-                  </h3>
+                  </h2>
                   <p className="text-sm text-gray-600 dark:text-gray-400">{contact.email}</p>
                 </div>
                 <span
@@ -172,9 +172,9 @@ export default function AdminContacts() {
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 space-y-4">
               <div className="flex justify-between items-start">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {selectedMessage.subject}
-                  </h2>
+                  </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     From: <strong>{selectedMessage.name}</strong> ({selectedMessage.email})
                   </p>

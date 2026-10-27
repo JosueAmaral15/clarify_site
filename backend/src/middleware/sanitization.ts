@@ -40,7 +40,7 @@ export const sanitizeMongoQueries = (
 /**
  * Remove MongoDB operators from object
  */
-function sanitizeMongoObject(obj: any): any {
+export function sanitizeMongoObject(obj: any): any {
   if (typeof obj === 'string') {
     // Only remove $ at the beginning of strings and dots in keys
     // Don't remove @ from emails or other special chars
@@ -54,7 +54,7 @@ function sanitizeMongoObject(obj: any): any {
   if (obj !== null && typeof obj === 'object') {
     const sanitized: any = {};
     for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
         // Remove keys starting with $ or containing .
         const sanitizedKey = key.replace(/^\$/g, '').replace(/\./g, '_');
         sanitized[sanitizedKey] = sanitizeMongoObject(obj[key]);
@@ -119,7 +119,7 @@ export const sanitizeInput = (
  * Recursively sanitize an object
  * Removes potentially dangerous HTML/JavaScript
  */
-function sanitizeObject(obj: any): any {
+export function sanitizeObject(obj: any): any {
   if (typeof obj === 'string') {
     return sanitizeString(obj);
   }

@@ -3,20 +3,23 @@ import Contact from '../models/Contact';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import { EmailService } from '../services/email.service';
+import { requireAuth, requireAdmin, AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
-// Rate limiting: 5 messages per hour per IP
-const contactLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5,
-  message: {
-    success: false,
-    message: 'Too many contact requests. Please try again later.',
-  },
-  standardHeaders: true,
-  legacyHeaders: false,
-});
+// Rate limiting: 5 messages per hour per IP (disabled in test environment)
+const contactLimiter = process.env.NODE_ENV === 'test'
+  ? (_req: Request, _res: Response, next: any) => next() // No rate limit in tests
+  : rateLimit({
+      windowMs: 60 * 60 * 1000, // 1 hour
+      max: 5,
+      message: {
+        success: false,
+        message: 'Too many contact requests. Please try again later.',
+      },
+      standardHeaders: true,
+      legacyHeaders: false,
+    });
 
 // Validation rules
 const contactValidation = [
@@ -118,7 +121,7 @@ router.post(
  * @desc    Get all contact messages (admin only)
  * @access  Private/Admin
  */
-router.get('/', async (req: Request, res: Response): Promise<void> => {
+router.get('/', requireAuth, requireAdmin, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { status, page = 1, limit = 20 } = req.query;
 
