@@ -5,7 +5,7 @@ import { useRef, useEffect } from 'react';
 export default function DocsPage() {
   const { searchQuery, setSearchQuery, results, hasResults } = useDocSearch();
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   // Keyboard shortcut: / to focus search
   useEffect(() => {

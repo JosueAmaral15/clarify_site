@@ -10,7 +10,7 @@ export default function DownloadSection() {
     byPlatform: { windows: 0, macos: 0, linux: 0 }, 
     recent: [] 
   });
-  const [isDownloading, setIsDownloading] = useState(false);
+  //const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     // Fetch download stats
