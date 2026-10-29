@@ -1,35 +1,34 @@
-name: Deploy to Production
+name: Deploy Vercel Services
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vercel-production
+  cancel-in-progress: false
 
 jobs:
-  deploy-frontend:
+  deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./frontend
-          vercel-args: '--prod'
-  
-  deploy-backend:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Deploy to Railway
-        uses: bervProject/railway-deploy@main
-        with:
-          railway_token: ${{ secrets.RAILWAY_TOKEN }}
-          service: ${{ secrets.RAILWAY_SERVICE_ID }}
+          node-version: '22'
+
+      - name: Deploy all services from repository root
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: npx --yes vercel@latest deploy --prod --yes --token "$VERCEL_TOKEN"

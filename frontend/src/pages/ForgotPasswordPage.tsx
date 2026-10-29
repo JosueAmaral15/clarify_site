@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+import { API_BASE_URL } from '../services/apiConfig';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
 
     setLoading(true);
     try {
-      await axios.post(`${API_URL}/api/auth/forgot-password`, { email });
+      await axios.post(`${API_BASE_URL}/auth/forgot-password`, { email });
       setMessage('Password reset instructions sent to your email');
       setEmail('');
     } catch (err: any) {

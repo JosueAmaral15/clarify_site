@@ -8,6 +8,21 @@
 
 ---
 
+## Vercel Services Configuration (2026-10-29)
+
+- [x] Inspect service calls and document the deployment plan.
+- [x] Obtain owner confirmation: frontend/backend public, no internal bindings.
+- [x] Prepare root services config, SPA fallback, shared browser API base,
+  prefixed health/metadata, dev proxy, and repository-root deployment workflow.
+- [x] Add API path and request regression tests; validate config and whitespace.
+- [ ] Run both builds and test suites without hitting the RAM guard.
+- [ ] Run `vercel dev` and validate a preview, including direct SPA links/assets.
+- [ ] Review final JSON and approve deployment separately.
+
+Details: [Vercel Services guide](VERCEL_SERVICES.md) and
+[execution plan](plans/VERCEL_SERVICES_PLAN.md).
+This task does not advance open-source release Phase 2.
+
 ## 🎉 MVP STATUS: 100% COMPLETE
 
 **Version**: 1.0.0  

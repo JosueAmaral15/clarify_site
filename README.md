@@ -1,5 +1,8 @@
 # Clarify Site - Full-Stack Web Application
 
+Current Vercel multi-service setup: [Deployment guide](docs/VERCEL_SERVICES.md).
+It supersedes the older split Vercel/Railway deployment instructions below.
+
 **Author**: Josué Amaral  
 **Created**: January 01, 2026  
 **Version**: 1.0.0  

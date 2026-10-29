@@ -1,5 +1,9 @@
 # 🚀 Clarify Site - Deployment Guide
 
+For the current repository-root Vercel Services configuration, use
+[VERCEL_SERVICES.md](VERCEL_SERVICES.md). The split Vercel/Railway procedure
+below is historical.
+
 **Created**: January 04, 2026  
 **Last Updated**: January 04, 2026  
 **Product**: Clarify v2.9.111 Landing Page

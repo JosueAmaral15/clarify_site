@@ -66,7 +66,7 @@ app.use(cookieParser());
 app.use(preventParameterPollution);
 
 // Health Check Route
-app.get('/health', (_req: Request, res: Response) => {
+app.get(['/health', '/api/health'], (_req: Request, res: Response) => {
   res.status(200).json({
     status: 'ok',
     message: 'Clarify Site API is running',
@@ -75,13 +75,13 @@ app.get('/health', (_req: Request, res: Response) => {
 });
 
 // Root Route
-app.get('/', (_req: Request, res: Response) => {
+app.get(['/', '/api'], (_req: Request, res: Response) => {
   res.status(200).json({
     name: 'Clarify Site API',
     version: '1.0.0',
     description: 'Backend API for Clarify Site',
     endpoints: {
-      health: '/health',
+      health: '/api/health',
       api: '/api',
       auth: '/api/auth',
     },
@@ -104,9 +104,11 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
 export default app;
