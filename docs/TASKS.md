@@ -19,14 +19,16 @@
 - [x] Add API path and request regression tests; validate config and whitespace.
 - [x] Run both builds and test suites in GitHub CI; frontend and backend passed
   on PR #36 without consuming constrained workstation memory.
-- [ ] Run `vercel dev` and validate a preview, including direct SPA links/assets.
-- [ ] Verify Git-based Preview routes through authenticated Vercel access; the
-  integration and build passed, but Deployment Protection intercepted public HTTP checks.
+- [ ] Run `vercel dev` locally when workstation memory permits.
+- [x] Validate an authenticated Git-based Preview: `/`, direct `/docs`, frontend
+  assets, backend invocation, and clean startup logs passed. Direct JSON response
+  bodies remain browser-client-blocked; configured MongoDB/SMTP are not certified.
 - [ ] Replace legacy explicit `any` types and CommonJS test imports, then re-enable
   the stricter ESLint 9 TypeScript and React Hooks migration rules.
 - [ ] Add a Vitest-compatible coverage provider, restore frontend coverage output,
   and upload it only after the coverage command passes in CI.
-- [ ] Review final JSON and approve deployment separately.
+- [x] Review and confirm the final service names, public routes, and no bindings.
+- [ ] Approve merge and resulting Production deployment separately.
 
 Details: [Vercel Services guide](VERCEL_SERVICES.md) and
 [execution plan](plans/VERCEL_SERVICES_PLAN.md).

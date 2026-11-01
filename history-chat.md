@@ -88,3 +88,22 @@ Keep this record summarized and free of secrets and unnecessary personal data.
 - Direct Preview HTTP checks reached Vercel's Deployment Protection login. Runtime
   route validation remains pending authenticated access; no production merge or
   deployment was performed.
+
+## Authenticated Preview Validation (2026-11-01)
+
+- Authenticated Vercel access exposed the backend's initial missing-`express`
+  failure. The Services beta build output had lost dependency resolution.
+- Switched the backend to its source entrypoint with `outputDirectory: "."`, the
+  workaround tracked in Vercel issue #17651. Express then initialized correctly.
+- Kept health and metadata routes alive without `MONGODB_URI`; database-backed
+  routes return HTTP 503 immediately instead of waiting for Mongoose buffering.
+- Configured Express proxy trust on Vercel and skipped SMTP verification when
+  credentials are absent, removing startup validation errors and external calls.
+- Commit `3ce4284` passed frontend CI, backend CI, Vercel, and Preview Comments.
+  Its authenticated Preview rendered `/` and direct `/docs`; the frontend invoked
+  the backend, whose runtime logs contained no warning, error, or fatal entries.
+- The browser client blocked direct top-level navigation to JSON `/api` paths, so
+  those response bodies were not claimed as observed. MongoDB, SMTP, login, and
+  email delivery remain unverified until Preview-safe environment values exist.
+- No local secrets were transmitted, and no merge or Production deployment was
+  performed. Promotion remains a separate owner approval.

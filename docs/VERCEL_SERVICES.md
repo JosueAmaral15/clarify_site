@@ -1,7 +1,7 @@
 # One Vercel Project, Two Services
 
 Updated: 2026-11-01
-Status: CI and Vercel Preview build passed; protected runtime validation pending.
+Status: Authenticated Preview validated; production configuration pending.
 
 This is the current deployment guide for this task. Older Railway and
 frontend-only instructions do not describe the multi-service configuration.
@@ -18,7 +18,7 @@ that domain. There are no server-side calls between the two services; MongoDB
 and SMTP are external infrastructure, not Vercel services in this repository.
 
 The owner explicitly confirmed: "Keep frontend/backend public; no bindings".
-Review the final JSON before deployment as requested.
+Production promotion still requires separate approval.
 
 ## Routing Contract
 
@@ -68,8 +68,11 @@ That architecture is not part of the confirmed two-service configuration.
    `.` rather than `frontend`. The root `vercel.json` defines both services.
 2. Remove old project-wide build/output/framework overrides that conflict with
    service-owned settings. Use the current Services import/setup flow.
-3. Each service installs with `npm ci` and builds with its own `npm run build`.
-   Frontend output is `dist`; backend entrypoint is `src/server.ts`.
+3. The frontend installs with `npm ci`, builds with `npm run build`, and publishes
+   `dist`. The backend uses Vercel's Express source entrypoint at `src/server.ts`.
+   Its `outputDirectory` remains `.` to preserve dependency resolution around an
+   open Services build-output issue; remove this workaround only after Vercel
+   documents or ships a compatible fix.
 4. Set environment values in Vercel for the intended Preview/Production scope.
    Do not copy a development `.env` into a production deployment.
 5. Keep `VITE_API_URL` unset or set it to `/api` for this same-domain topology.
@@ -81,8 +84,9 @@ That architecture is not part of the confirmed two-service configuration.
 7. Set `FRONTEND_URL` to the actual public site origin for CORS and links in
    email. Preview email links need a preview-specific origin; do not invent a
    domain or assume the production origin works for every preview.
-8. Verify a preview before production promotion. No project settings, secrets,
-   database contents, repository visibility, or deployment were changed here.
+8. Verify a preview before production promotion. The Git integration created PR
+   Previews, but no secrets, database contents, repository visibility, production
+   settings, production deployment, or merge were changed here.
 
 ## Local Development
 
@@ -135,9 +139,17 @@ merging or promoting a deployment. No dashboard setting was changed locally.
   newsletter prefix, metadata/health paths, authentication, and API 404s.
 - PR #36 passed frontend CI (lint, TypeScript, 12 tests, and build) and backend
   CI (lint, TypeScript, tests, and audit step) on GitHub-hosted runners.
-- The Vercel Preview build passed through the existing native Git integration.
-  Unauthenticated HTTP checks reached Vercel's Deployment Protection login for
-  every path, so the live `/api` routing contract is not yet certified.
+- The authenticated Preview for commit `3ce4284` rendered `/` and a direct
+  `/docs` navigation. Its frontend request invoked the `backend` service.
+- Preview runtime logs recorded two informational startup messages and no warning,
+  error, or fatal entries. The previous missing-Express failure, SMTP connection
+  attempt, rate-limit proxy validation errors, and Mongoose buffering timeout did
+  not recur.
+- `MONGODB_URI` and SMTP credentials were deliberately not copied from local
+  development. Database-backed routes now fail immediately with HTTP 503 when
+  MongoDB is unconfigured; CI covers that contract. The in-app browser blocked
+  top-level navigation to JSON `/api` URLs, so their live response bodies were not
+  directly observed.
 - Vercel CLI was not installed globally. Its temporary-cache `vercel dev`
   attempt was stopped during setup. The local checkout is not linked through a
   `.vercel` directory; the Git integration created only protected PR Previews.
@@ -154,9 +166,10 @@ cd ../backend
 npx jest src/__tests__/unit/service-routing.test.ts --runInBand
 ```
 
-Run the existing CI suites too. The mocked routing test does not certify live
-MongoDB, SMTP, login, or email delivery. Production rate limits use the existing
-implementation; distributed rate-limit storage is outside this change.
+Run the existing CI suites too. The mocked routing test and unconfigured Preview
+do not certify live MongoDB, SMTP, login, or email delivery. Production rate
+limits use the existing implementation; distributed rate-limit storage is
+outside this change.
 
 ## Rollback
 
@@ -171,3 +184,4 @@ settings, then verify frontend routes, `/api/health`, and API authentication.
 - [Runtime service bindings](https://vercel.com/docs/services/bindings)
 - [Service-owned configuration](https://vercel.com/docs/services/config-reference)
 - [Express entrypoints and exports](https://vercel.com/docs/frameworks/backend/express)
+- [Services build-output dependency issue](https://github.com/vercel/vercel/issues/17651)
