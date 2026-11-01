@@ -17,10 +17,11 @@
 - [x] Remove token-bearing deployment Actions after CWE-829 review; select
   Vercel's native Git integration as the sole deployment mechanism.
 - [x] Add API path and request regression tests; validate config and whitespace.
-- [ ] Run both builds and test suites without hitting the RAM guard.
+- [x] Run both builds and test suites in GitHub CI; frontend and backend passed
+  on PR #36 without consuming constrained workstation memory.
 - [ ] Run `vercel dev` and validate a preview, including direct SPA links/assets.
-- [ ] Connect the repository-root Vercel project and verify Git-based Preview and
-  Production deployment settings without exposing deployment tokens to Actions.
+- [ ] Verify Git-based Preview routes through authenticated Vercel access; the
+  integration and build passed, but Deployment Protection intercepted public HTTP checks.
 - [ ] Replace legacy explicit `any` types and CommonJS test imports, then re-enable
   the stricter ESLint 9 TypeScript and React Hooks migration rules.
 - [ ] Add a Vitest-compatible coverage provider, restore frontend coverage output,

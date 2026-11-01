@@ -1,7 +1,7 @@
 # One Vercel Project, Two Services
 
 Updated: 2026-11-01
-Status: Local configuration prepared; deployment validation pending.
+Status: CI and Vercel Preview build passed; protected runtime validation pending.
 
 This is the current deployment guide for this task. Older Railway and
 frontend-only instructions do not describe the multi-service configuration.
@@ -133,11 +133,14 @@ merging or promoting a deployment. No dashboard setting was changed locally.
   duplicate newsletter prefix removed.
 - Regression tests added for the API base, public override, token refresh,
   newsletter prefix, metadata/health paths, authentication, and API 404s.
-- Builds, focused tests, and `vercel dev` are not certified as passing. This
-  workstation repeatedly exceeded the protocol's 85% RAM guard. The baseline
-  backend build was stopped; guarded checks were refused or terminated.
+- PR #36 passed frontend CI (lint, TypeScript, 12 tests, and build) and backend
+  CI (lint, TypeScript, tests, and audit step) on GitHub-hosted runners.
+- The Vercel Preview build passed through the existing native Git integration.
+  Unauthenticated HTTP checks reached Vercel's Deployment Protection login for
+  every path, so the live `/api` routing contract is not yet certified.
 - Vercel CLI was not installed globally. Its temporary-cache `vercel dev`
-  attempt was stopped during setup. The project has not been linked or deployed.
+  attempt was stopped during setup. The local checkout is not linked through a
+  `.vercel` directory; the Git integration created only protected PR Previews.
 
 Before promotion, run both builds and focused tests on a machine with enough
 RAM, then test the full route table and assets with `vercel dev` and a preview:
