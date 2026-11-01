@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+import { API_BASE_URL } from '../services/apiConfig';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API_URL}/api/auth/login`, {
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
         email,
         password
       });

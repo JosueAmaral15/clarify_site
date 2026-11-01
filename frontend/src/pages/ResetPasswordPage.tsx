@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+import { API_BASE_URL } from '../services/apiConfig';
 
 export default function ResetPasswordPage() {
   const { token } = useParams<{ token: string }>();
@@ -45,7 +45,7 @@ export default function ResetPasswordPage() {
 
     setLoading(true);
     try {
-      await axios.post(`${API_URL}/api/auth/reset-password/${token}`, {
+      await axios.post(`${API_BASE_URL}/auth/reset-password/${token}`, {
         password: formData.password,
       });
       setMessage('Password reset successful! Redirecting to login...');

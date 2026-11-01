@@ -30,7 +30,7 @@ export default function FinalCTA() {
           position: 'top-right',
         });
       }
-    } catch (error) {
+    } catch {
       const errorMsg = 'Failed to subscribe. Please try again.';
       setMessage({ type: 'error', text: errorMsg });
       toast.error(errorMsg, {

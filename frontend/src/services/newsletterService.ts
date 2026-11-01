@@ -11,7 +11,7 @@ class NewsletterService {
    */
   async subscribe(email: string): Promise<NewsletterResponse> {
     try {
-      const response = await apiClient.post('/api/newsletter/subscribe', { email });
+      const response = await apiClient.post('/newsletter/subscribe', { email });
       return response.data;
     } catch (error: any) {
       if (error.response?.data) {

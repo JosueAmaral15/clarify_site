@@ -15,7 +15,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+import { API_BASE_URL } from '../services/apiConfig';
 
 interface Stats {
   downloads: { total: number; thisMonth: number };
@@ -67,11 +67,11 @@ export default function AdminDashboard() {
       const headers = { Authorization: `Bearer ${token}` };
 
       const [statsRes, downloadsRes, contactsRes, platformRes, timelineRes] = await Promise.all([
-        axios.get(`${API_URL}/api/analytics/stats`, { headers }),
-        axios.get(`${API_URL}/api/analytics/downloads`, { headers }),
-        axios.get(`${API_URL}/api/analytics/contacts`, { headers }),
-        axios.get(`${API_URL}/api/analytics/downloads/by-platform`, { headers }),
-        axios.get(`${API_URL}/api/analytics/downloads/timeline`, { headers })
+        axios.get(`${API_BASE_URL}/analytics/stats`, { headers }),
+        axios.get(`${API_BASE_URL}/analytics/downloads`, { headers }),
+        axios.get(`${API_BASE_URL}/analytics/contacts`, { headers }),
+        axios.get(`${API_BASE_URL}/analytics/downloads/by-platform`, { headers }),
+        axios.get(`${API_BASE_URL}/analytics/downloads/timeline`, { headers })
       ]);
 
       setStats(statsRes.data.data);

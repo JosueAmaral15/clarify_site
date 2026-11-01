@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../services/apiConfig';
 
 interface User {
   id: string;
@@ -22,8 +23,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
@@ -43,7 +42,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const loadUser = async () => {
       if (token) {
         try {
-          const response = await axios.get(`${API_URL}/api/auth/me`);
+          const response = await axios.get(`${API_BASE_URL}/auth/me`);
           setUser(response.data.data.user);
         } catch (error) {
           console.error('Failed to load user:', error);
@@ -57,7 +56,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [token]);
 
   const login = async (email: string, password: string) => {
-    const response = await axios.post(`${API_URL}/api/auth/login`, { email, password });
+    const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
     const { data } = response.data;
     setUser(data.user);
     setToken(data.accessToken);
@@ -65,7 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const register = async (email: string, password: string, name: string) => {
-    const response = await axios.post(`${API_URL}/api/auth/register`, { email, password, name });
+    const response = await axios.post(`${API_BASE_URL}/auth/register`, { email, password, name });
     const { data } = response.data;
     setUser(data.user);
     setToken(data.accessToken);
@@ -74,7 +73,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const logout = async () => {
     try {
-      await axios.post(`${API_URL}/api/auth/logout`);
+      await axios.post(`${API_BASE_URL}/auth/logout`);
     } catch (error) {
       console.error('Logout error:', error);
     }

@@ -8,6 +8,32 @@
 
 ---
 
+## Vercel Services Configuration (2026-10-29)
+
+- [x] Inspect service calls and document the deployment plan.
+- [x] Obtain owner confirmation: frontend/backend public, no internal bindings.
+- [x] Prepare root services config, SPA fallback, shared browser API base,
+  prefixed health/metadata, and dev proxy.
+- [x] Remove token-bearing deployment Actions after CWE-829 review; select
+  Vercel's native Git integration as the sole deployment mechanism.
+- [x] Add API path and request regression tests; validate config and whitespace.
+- [x] Run both builds and test suites in GitHub CI; frontend and backend passed
+  on PR #36 without consuming constrained workstation memory.
+- [ ] Run `vercel dev` locally when workstation memory permits.
+- [x] Validate an authenticated Git-based Preview: `/`, direct `/docs`, frontend
+  assets, backend invocation, and clean startup logs passed. Direct JSON response
+  bodies remain browser-client-blocked; configured MongoDB/SMTP are not certified.
+- [ ] Replace legacy explicit `any` types and CommonJS test imports, then re-enable
+  the stricter ESLint 9 TypeScript and React Hooks migration rules.
+- [ ] Add a Vitest-compatible coverage provider, restore frontend coverage output,
+  and upload it only after the coverage command passes in CI.
+- [x] Review and confirm the final service names, public routes, and no bindings.
+- [ ] Approve merge and resulting Production deployment separately.
+
+Details: [Vercel Services guide](VERCEL_SERVICES.md) and
+[execution plan](plans/VERCEL_SERVICES_PLAN.md).
+This task does not advance open-source release Phase 2.
+
 ## 🎉 MVP STATUS: 100% COMPLETE
 
 **Version**: 1.0.0  
@@ -575,8 +601,9 @@ Using **Complexity** markers:
   - Security audit (npm audit --audit-level=high) ✅
 
 - [x] 🟢 #43 Deploy workflow (1.5h) ✅
-  - Auto-deploy frontend to Vercel on push to main ✅
-  - Auto-deploy backend to Railway on push to main ✅
+  - Historical: frontend Vercel Action deployment (superseded 2026-11-01)
+  - Historical: backend Railway Action deployment (superseded 2026-11-01)
+  - Current: native Vercel Git deployment for both services
   - Environment variables configuration ✅
   - GitHub Secrets setup documented ✅
 

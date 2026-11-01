@@ -5,11 +5,14 @@ on:
     branches: [main, develop]
     paths:
       - 'backend/**'
+      - 'vercel.json'
       - '.github/workflows/backend-ci.yml'
   pull_request:
     branches: [main, develop]
     paths:
       - 'backend/**'
+      - 'vercel.json'
+      - '.github/workflows/backend-ci.yml'
 
 jobs:
   backend-ci:
@@ -51,7 +54,7 @@ jobs:
         run: npx tsc --noEmit
       
       - name: Run tests
-        run: npm run test -- --coverage
+        run: npm test
         env:
           MONGODB_URI: mongodb://localhost:27017/clarify_site_test
           JWT_SECRET: test-jwt-secret-key-for-ci

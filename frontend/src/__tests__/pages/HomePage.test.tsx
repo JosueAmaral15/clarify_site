@@ -11,7 +11,12 @@ describe('HomePage', () => {
       </BrowserRouter>
     );
     
-    expect(screen.getByText(/Clarify/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: /Clarify - Your Professional Text Processing Toolkit/i,
+      })
+    ).toBeInTheDocument();
   });
 
   it('should display hero section', () => {
