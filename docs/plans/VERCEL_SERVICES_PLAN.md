@@ -28,8 +28,8 @@ Owner confirmed the proposed names, public paths, and no internal bindings.
 4. Default the browser client to same-origin `/api`; retain an explicit public
    `VITE_API_URL` override. Add a Vite proxy for ordinary local development.
 5. Expose health and API metadata within `/api`; retain existing local aliases.
-6. Replace split frontend/Railway deployment automation with one repository-root
-   multi-service deployment, preserving the existing `main` push trigger.
+6. Remove split frontend/Railway deployment automation and use the native Vercel
+   Git integration for the repository-root multi-service project.
 7. Verify focused API routing tests, both builds, configuration schema, and
    attempt repository-root `vercel dev`. Record missing credentials or services.
 8. Present the complete final JSON and request explicit confirmation of service
@@ -46,7 +46,8 @@ The CLI setup and focused test attempts were stopped/refused at the 85% RAM
 guard. Configuration validation and diff whitespace checks passed; full build,
 integration, and live-service checks remain pending.
 Lightweight syntax validation passed for 12 changed/new TypeScript files;
-the three changed workflow YAML files parsed successfully.
+the two retained CI workflow YAML files parsed successfully. The production
+deployment workflow was removed after the owner approved native Git deployment.
 
 Rollback consists of reverting this task's scoped commit/patch, preserving
 other work, and restoring the previous Vercel deployment if later promoted.

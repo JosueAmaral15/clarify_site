@@ -2,7 +2,8 @@
 
 For the current repository-root Vercel Services configuration, use
 [VERCEL_SERVICES.md](VERCEL_SERVICES.md). The split Vercel/Railway procedure
-below is historical.
+below is historical. Current deployments use Vercel's native Git integration;
+there is no GitHub Actions production-deployment workflow.
 
 **Created**: January 04, 2026  
 **Last Updated**: January 04, 2026  

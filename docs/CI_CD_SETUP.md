@@ -6,7 +6,7 @@
 
 ---
 
-## ✅ Implemented Workflows
+## Implemented Workflows
 
 ### 1. Frontend CI (`.github/workflows/frontend-ci.yml`)
 - ESLint + TypeScript + Vitest
@@ -20,9 +20,11 @@
 - Security audit (high level)
 - Coverage reports
 
-### 3. Deploy (`.github/workflows/deploy.yml`)
-- Auto-deploy frontend to Vercel
-- Auto-deploy backend to Railway
+### 3. Deployment (Vercel Git Integration)
+- One Vercel project builds the frontend and backend services from the root
+- Pull requests create Preview deployments
+- Pushes to `main` create Production deployments
+- No production deployment token is exposed to GitHub Actions
 
 ---
 
@@ -34,4 +36,4 @@
 
 ---
 
-**Status**: ✅ Complete
+**Status**: CI workflows configured; Vercel Git integration validation pending

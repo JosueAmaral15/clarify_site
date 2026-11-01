@@ -1,6 +1,6 @@
 # One Vercel Project, Two Services
 
-Updated: 2026-10-29
+Updated: 2026-11-01
 Status: Local configuration prepared; deployment validation pending.
 
 This is the current deployment guide for this task. Older Railway and
@@ -103,18 +103,20 @@ the Vite dev server; it is not an internal binding or deployment configuration.
 
 ## Deployment Automation
 
-`.github/workflows/deploy.yml` deploys all services from the repository root.
-It preserves the existing production trigger on pushes to `main` and also
-supports manual dispatch. It no longer invokes a
-separate Railway deployment or deploys only the frontend directory.
+Use Vercel's native Git integration as the only deployment mechanism. Connect
+this repository to one Vercel project at repository root `.` and configure
+`main` as its Production Branch. Pull requests should create Preview deployments;
+pushes to `main` should create Production deployments.
 
-GitHub workflow secrets are `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and
-`VERCEL_PROJECT_ID`. Never print their values. The workflow uses the current
-Vercel CLI so it understands the Services configuration.
+There is deliberately no `.github/workflows/deploy.yml`. The previous workflow
+executed third-party deployment code while exposing production tokens, which was
+reported as CWE-829 by GitHub code scanning. Removing it also avoids duplicate
+deployments and keeps `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`
+out of GitHub Actions. Retain the frontend and backend CI workflows for checks.
 
-If Vercel Git integration is also enabled, pushes may independently create
-deployments. Check its production-branch and deployment settings before pushing;
-choose one deployment mechanism to avoid duplicate production deployments.
+After the Vercel project is connected, verify the configured root, Production
+Branch, Preview behavior, and environment scopes in the Vercel dashboard before
+merging or promoting a deployment. No dashboard setting was changed locally.
 
 ## Validation and Limits
 
@@ -125,7 +127,8 @@ choose one deployment mechanism to avoid duplicate production deployments.
 - Diff whitespace check: passed.
 - Syntax-only esbuild transforms: passed for 12 changed/new TypeScript files.
   This does not replace TypeScript semantic checking or production builds.
-- All three changed GitHub workflow files parsed successfully with `js-yaml`.
+- The two retained CI workflow files parsed successfully with `js-yaml`; the
+  production deployment workflow was removed.
 - Browser API caller inventory: shared base used; localhost fallbacks and the
   duplicate newsletter prefix removed.
 - Regression tests added for the API base, public override, token refresh,

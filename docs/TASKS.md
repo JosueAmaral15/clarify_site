@@ -13,10 +13,14 @@
 - [x] Inspect service calls and document the deployment plan.
 - [x] Obtain owner confirmation: frontend/backend public, no internal bindings.
 - [x] Prepare root services config, SPA fallback, shared browser API base,
-  prefixed health/metadata, dev proxy, and repository-root deployment workflow.
+  prefixed health/metadata, and dev proxy.
+- [x] Remove token-bearing deployment Actions after CWE-829 review; select
+  Vercel's native Git integration as the sole deployment mechanism.
 - [x] Add API path and request regression tests; validate config and whitespace.
 - [ ] Run both builds and test suites without hitting the RAM guard.
 - [ ] Run `vercel dev` and validate a preview, including direct SPA links/assets.
+- [ ] Connect the repository-root Vercel project and verify Git-based Preview and
+  Production deployment settings without exposing deployment tokens to Actions.
 - [ ] Review final JSON and approve deployment separately.
 
 Details: [Vercel Services guide](VERCEL_SERVICES.md) and
@@ -590,8 +594,9 @@ Using **Complexity** markers:
   - Security audit (npm audit --audit-level=high) ✅
 
 - [x] 🟢 #43 Deploy workflow (1.5h) ✅
-  - Auto-deploy frontend to Vercel on push to main ✅
-  - Auto-deploy backend to Railway on push to main ✅
+  - Historical: frontend Vercel Action deployment (superseded 2026-11-01)
+  - Historical: backend Railway Action deployment (superseded 2026-11-01)
+  - Current: native Vercel Git deployment for both services
   - Environment variables configuration ✅
   - GitHub Secrets setup documented ✅
 

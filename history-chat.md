@@ -58,3 +58,17 @@ Guide: [Vercel Services](docs/VERCEL_SERVICES.md).
 Plan: [Execution plan](docs/plans/VERCEL_SERVICES_PLAN.md).
 
 Keep this record summarized and free of secrets and unnecessary personal data.
+
+## Security Follow-up (2026-11-01)
+
+- Reviewed GitHub code-scanning alert #9 (CWE-829) and the linked project chat.
+- Confirmed the alert was valid: `bervProject/railway-deploy@main` executed mutable
+  third-party code while receiving a production Railway token.
+- Confirmed GitHub `main` still contained that workflow; the earlier local Vercel
+  workflow removed Railway but used a mutable `vercel@latest` CLI invocation.
+- Owner approved using Vercel's native Git integration for both services.
+- Removed `.github/workflows/deploy.yml` so GitHub Actions no longer handles
+  Railway or Vercel production deployment tokens.
+- Updated current operational documentation. Historical Railway instructions remain
+  labeled as historical; no Vercel project setting, push, or deployment occurred.
+- The alert should be verified by a fresh code scan after this branch is merged.

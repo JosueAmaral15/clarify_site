@@ -127,8 +127,7 @@ clarify_site/
 ├── .github/
 │   ├── workflows/           # GitHub Actions
 │   │   ├── frontend-ci.yml
-│   │   ├── backend-ci.yml
-│   │   └── deploy.yml
+│   │   └── backend-ci.yml
 │   └── ISSUE_TEMPLATE/      # Issue templates
 │       ├── bug_report.md
 │       └── feature_request.md
@@ -195,25 +194,29 @@ Following **Step 6.5** of Simplicity Protocol 3 (MANDATORY):
 
 ## 🚀 CI/CD Pipeline (Step 10.6 - MANDATORY)
 
-### GitHub Actions Workflow:
+### GitHub Actions and Vercel:
 
-**Frontend (Vercel)**:
+**Frontend CI**:
 - Linting (ESLint + Prettier)
 - Type checking (tsc)
 - Unit tests (Vitest)
 - Build verification
-- Auto-deploy to Vercel
 
-**Backend (Railway)**:
+**Backend CI**:
 - Linting (ESLint + Prettier)
 - Type checking (tsc)
 - Unit tests (Jest)
 - Security audit (npm audit)
-- Auto-deploy to Railway
+
+**Deployment**:
+- One Vercel project deploys both services from the repository root
+- Vercel's native Git integration creates Preview and Production deployments
+- GitHub Actions does not receive production deployment tokens
 
 **Triggers**:
-- Push to `main` → Production deploy
-- Pull requests → Preview deploy + tests
+- Pushes and pull requests → GitHub CI
+- Pull requests → Vercel Preview deployment
+- Push to `main` → Vercel Production deployment
 
 ---
 
