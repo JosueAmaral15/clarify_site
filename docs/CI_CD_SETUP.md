@@ -12,7 +12,7 @@
 - ESLint + TypeScript + Vitest
 - Build verification
 - Security audit
-- Coverage reports
+- Coverage reporting pending a compatible Vitest coverage provider
 
 ### 2. Backend CI (`.github/workflows/backend-ci.yml`)
 - ESLint + TypeScript + Jest

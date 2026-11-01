@@ -23,6 +23,8 @@
   Production deployment settings without exposing deployment tokens to Actions.
 - [ ] Replace legacy explicit `any` types and CommonJS test imports, then re-enable
   the stricter ESLint 9 TypeScript and React Hooks migration rules.
+- [ ] Add a Vitest-compatible coverage provider, restore frontend coverage output,
+  and upload it only after the coverage command passes in CI.
 - [ ] Review final JSON and approve deployment separately.
 
 Details: [Vercel Services guide](VERCEL_SERVICES.md) and
