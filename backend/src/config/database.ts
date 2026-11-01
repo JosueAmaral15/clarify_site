@@ -5,6 +5,13 @@ const connectDB = async (): Promise<void> => {
     const mongoURI = process.env.MONGODB_URI;
 
     if (!mongoURI) {
+      if (process.env.VERCEL) {
+        console.warn(
+          'MongoDB is not configured; database-backed endpoints are unavailable.'
+        );
+        return;
+      }
+
       throw new Error(
         'MONGODB_URI is not defined in environment variables. Please check your .env file.'
       );
@@ -20,8 +27,9 @@ const connectDB = async (): Promise<void> => {
     console.log(`📊 Database Name: ${conn.connection.name}`);
   } catch (error) {
     console.error('❌ MongoDB Connection Error:', error);
-    // Exit process with failure
-    process.exit(1);
+    if (process.env.NODE_ENV !== 'test') {
+      process.exit(1);
+    }
   }
 };
 
