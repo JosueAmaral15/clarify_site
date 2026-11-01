@@ -21,6 +21,8 @@
 - [ ] Run `vercel dev` and validate a preview, including direct SPA links/assets.
 - [ ] Connect the repository-root Vercel project and verify Git-based Preview and
   Production deployment settings without exposing deployment tokens to Actions.
+- [ ] Replace legacy explicit `any` types and CommonJS test imports, then re-enable
+  the stricter ESLint 9 TypeScript and React Hooks migration rules.
 - [ ] Review final JSON and approve deployment separately.
 
 Details: [Vercel Services guide](VERCEL_SERVICES.md) and
