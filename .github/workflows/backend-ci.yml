@@ -54,7 +54,7 @@ jobs:
         run: npx tsc --noEmit
       
       - name: Run tests
-        run: npm run test -- --coverage
+        run: npm test
         env:
           MONGODB_URI: mongodb://localhost:27017/clarify_site_test
           JWT_SECRET: test-jwt-secret-key-for-ci
