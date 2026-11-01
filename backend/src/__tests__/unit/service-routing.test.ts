@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { verifyEmailConnection } from '../../config/email.config';
 
 jest.mock('../../config/database', () => ({
   __esModule: true,
@@ -14,6 +15,16 @@ jest.mock('../../config/email.config', () => ({
 import app from '../../server';
 
 describe('Public Vercel service routing', () => {
+  const originalMongoURI = process.env.MONGODB_URI;
+
+  afterEach(() => {
+    process.env.MONGODB_URI = originalMongoURI;
+  });
+
+  it('does not verify SMTP when credentials are absent', () => {
+    expect(verifyEmailConnection).not.toHaveBeenCalled();
+  });
+
   it('serves API metadata at the exact public prefix', async () => {
     const response = await request(app).get('/api');
     expect(response.status).toBe(200);
@@ -29,6 +40,15 @@ describe('Public Vercel service routing', () => {
   it('retains API authentication on prefixed routes', async () => {
     const response = await request(app).get('/api/users/me');
     expect(response.status).toBe(401);
+  });
+
+  it('fails fast when a database-backed route has no database configuration', async () => {
+    delete process.env.MONGODB_URI;
+
+    const response = await request(app).get('/api/downloads/stats');
+
+    expect(response.status).toBe(503);
+    expect(response.body.message).toBe('Database service is unavailable');
   });
 
   it('returns an API 404 rather than SPA HTML for unknown endpoints', async () => {

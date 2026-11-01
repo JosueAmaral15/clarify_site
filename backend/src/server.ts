@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import connectDB from './config/database';
 import { apiLimiter } from './middleware/rateLimiter';
+import { requireDatabase } from './middleware/requireDatabase';
 import {
   sanitizeMongoQueries,
   preventParameterPollution,
@@ -30,11 +31,17 @@ dotenv.config();
 const app: Application = express();
 const PORT = process.env.PORT || 5000;
 
+if (process.env.VERCEL) {
+  app.set('trust proxy', 1);
+}
+
 // Connect to MongoDB
 connectDB();
 
-// Verify email connection (optional - won't block startup)
-verifyEmailConnection();
+// Verify SMTP only when credentials are configured.
+if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+  void verifyEmailConnection();
+}
 
 // Security Middleware (OWASP Top 10 Protection)
 // 1. Security Headers
@@ -89,13 +96,13 @@ app.get(['/', '/api'], (_req: Request, res: Response) => {
 });
 
 // API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/downloads', downloadRoutes);
-app.use('/api/contact', contactRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/newsletter', newsletterRoutes);
-app.use('/api/analytics', analyticsRoutes);
+app.use('/api/auth', requireDatabase, authRoutes);
+app.use('/api/downloads', requireDatabase, downloadRoutes);
+app.use('/api/contact', requireDatabase, contactRoutes);
+app.use('/api/users', requireDatabase, userRoutes);
+app.use('/api/admin', requireDatabase, adminRoutes);
+app.use('/api/newsletter', requireDatabase, newsletterRoutes);
+app.use('/api/analytics', requireDatabase, analyticsRoutes);
 
 // 404 Handler (must be after all routes)
 app.use(notFoundHandler);
